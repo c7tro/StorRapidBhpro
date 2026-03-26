@@ -3,18 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="BH.PRO - Premium Cleaning Products & Jannat Al-Fawah Luxury Perfumes. Professional results at 15 AED.">
+    <meta name="description" content="BH.PRO - Premium Cleaning Products & Jannat Al-Fawah Luxury Perfumes">
     <title>BH.PRO | تنظيف احترافي وعطور فاخرة</title>
     
-    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Playfair+Display:wght@700&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     
     <style>
         :root {
             --primary: #0f0f0f;
-            --accent: #C8102E;     /* Red as main accent */
-            --darkred: #9B0F23;
+            --accent: #C8102E;
             --text: #eeeeee;
         }
         
@@ -48,15 +46,16 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.2rem 0;
+            padding: 1.3rem 0;
         }
         
         .logo {
             font-family: 'Playfair Display', serif;
-            font-size: 2.3rem;
-            color: var(--accent);
+            font-size: 2.6rem;
             font-weight: 700;
+            color: var(--accent);
             text-decoration: none;
+            letter-spacing: -1px;
         }
         
         .lang-switch {
@@ -69,55 +68,61 @@
             cursor: pointer;
         }
         
-        /* Hero - New Clean House Image */
+        /* Hero - Improved Clean House Background */
         .hero {
-            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)), url('https://i.ibb.co/od58j/how-house-cleaning-supports-a-healthier-home.jpg') center/cover no-repeat;
+            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.70)), 
+                        url('https://images.unsplash.com/photo-1600585154340-be6161a56a9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=90') center/cover no-repeat;
             height: 100vh;
             display: flex;
             align-items: center;
         }
         
+        .hero-content {
+            max-width: 750px;
+        }
+        
         .hero-content h1 {
-            font-size: 3.6rem;
-            line-height: 1.1;
-            margin-bottom: 1rem;
+            font-size: 3.8rem;
+            line-height: 1.05;
+            margin-bottom: 1.2rem;
+            font-weight: 700;
         }
         
         .hero-content p {
-            font-size: 1.35rem;
-            margin-bottom: 2rem;
+            font-size: 1.4rem;
+            margin-bottom: 2.2rem;
             opacity: 0.95;
         }
         
         .cta-button {
             background: var(--accent);
             color: #fff;
-            padding: 16px 42px;
+            padding: 16px 44px;
             border: none;
             border-radius: 50px;
             font-size: 1.2rem;
             font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 10px 30px rgba(200, 16, 46, 0.5);
+            box-shadow: 0 12px 35px rgba(200, 16, 46, 0.5);
         }
         
         /* Products Section */
         .products-section {
-            padding: 100px 0;
+            padding: 110px 0;
             background: #0a0a0a;
         }
         
         .section-title {
             text-align: center;
-            font-size: 2.8rem;
-            margin-bottom: 3rem;
+            font-size: 2.9rem;
+            margin-bottom: 3.5rem;
             color: #fff;
         }
         
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 25px;
+            gap: 28px;
         }
         
         .product-card {
@@ -128,7 +133,7 @@
         }
         
         .product-card:hover {
-            transform: translateY(-12px);
+            transform: translateY(-15px);
         }
         
         .product-card img {
@@ -139,29 +144,29 @@
         }
         
         .product-info {
-            padding: 22px;
+            padding: 24px;
         }
         
         .product-name {
-            font-size: 1.35rem;
+            font-size: 1.38rem;
             font-weight: 600;
             margin-bottom: 10px;
         }
         
         .price {
             color: var(--accent);
-            font-size: 1.7rem;
+            font-size: 1.75rem;
             font-weight: 700;
         }
         
         .box-offer {
             background: var(--accent);
             color: #fff;
-            padding: 6px 18px;
+            padding: 7px 20px;
             border-radius: 30px;
             font-weight: 700;
             display: inline-block;
-            margin-bottom: 15px;
+            margin-bottom: 16px;
         }
         
         /* Image Modal */
@@ -179,10 +184,9 @@
             max-width: 92%;
             max-height: 92vh;
             border-radius: 16px;
-            box-shadow: 0 0 60px rgba(200,16,46,0.4);
         }
         
-        /* Cart Sidebar (New improved cart) */
+        /* Cart Sidebar */
         .cart-sidebar {
             position: fixed;
             top: 0;
@@ -190,87 +194,68 @@
             width: 420px;
             height: 100%;
             background: #1a1a1a;
-            box-shadow: -10px 0 40px rgba(0,0,0,0.6);
+            box-shadow: -15px 0 50px rgba(0,0,0,0.7);
             z-index: 100000;
             transition: right 0.4s ease;
+            padding: 30px 25px;
             overflow-y: auto;
-            padding: 25px;
         }
         
-        body.rtl .cart-sidebar {
-            right: auto;
-            left: -420px;
-        }
-        
-        .cart-sidebar.open {
-            right: 0;
-        }
-        
-        body.rtl .cart-sidebar.open {
-            left: 0;
-        }
+        body.rtl .cart-sidebar { right: auto; left: -420px; }
+        .cart-sidebar.open { right: 0; }
+        body.rtl .cart-sidebar.open { left: 0; }
         
         .cart-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 0;
+            padding: 16px 0;
             border-bottom: 1px solid #333;
         }
         
-        .quantity-controls {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: #222;
-            padding: 6px 12px;
-            border-radius: 8px;
-        }
-        
-        .quantity-btn {
-            width: 32px;
-            height: 32px;
+        .quantity-controls button {
+            width: 34px;
+            height: 34px;
             background: var(--accent);
             color: #fff;
             border: none;
-            border-radius: 6px;
-            font-size: 1.2rem;
+            border-radius: 8px;
+            font-size: 1.3rem;
             cursor: pointer;
         }
         
-        /* Sticky Buy Button */
+        /* Sticky Button */
         .sticky-buy {
             position: fixed;
-            bottom: 25px;
+            bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
             background: var(--accent);
             color: #fff;
-            padding: 16px 38px;
+            padding: 16px 40px;
             border-radius: 50px;
-            font-size: 1.15rem;
+            font-size: 1.18rem;
             font-weight: 700;
-            box-shadow: 0 15px 45px rgba(200, 16, 46, 0.6);
+            box-shadow: 0 15px 45px rgba(200,16,46,0.6);
             z-index: 9998;
             cursor: pointer;
-            white-space: nowrap;
         }
         
         /* Floating WhatsApp */
         .whatsapp-float {
             position: fixed;
-            bottom: 100px;
+            bottom: 105px;
             right: 25px;
             background: #25D366;
             color: #fff;
-            width: 68px;
-            height: 68px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
-            box-shadow: 0 10px 35px rgba(37,211,102,0.5);
+            font-size: 32px;
+            box-shadow: 0 10px 40px rgba(37,211,102,0.5);
             z-index: 9999;
             cursor: pointer;
         }
@@ -278,7 +263,7 @@
         footer {
             background: #000;
             color: #aaa;
-            padding: 60px 0 30px;
+            padding: 70px 0 40px;
             text-align: center;
         }
     </style>
@@ -289,24 +274,22 @@
     <nav>
         <div class="container nav-content">
             <a href="#" class="logo">BH.PRO</a>
-            <div>
-                <button onclick="toggleLanguage()" class="lang-switch" id="lang-btn">العربية</button>
-            </div>
+            <button onclick="toggleLanguage()" class="lang-switch" id="lang-btn">العربية</button>
         </div>
     </nav>
 
-    <!-- Hero - Clean House Image -->
+    <!-- Hero Section - Clean House -->
     <section class="hero">
         <div class="container">
-            <div class="hero-content" style="max-width:720px;">
+            <div class="hero-content">
                 <h1 id="hero-title">Clean Home.<br>Beautiful Life.</h1>
-                <p id="hero-subtitle">Powerful cleaning products &amp; long-lasting luxury fragrances</p>
+                <p id="hero-subtitle">Professional cleaning solutions &amp; long-lasting luxury fragrances</p>
                 <button onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})" class="cta-button">Shop Now – اطلب الآن</button>
             </div>
         </div>
     </section>
 
-    <!-- Products -->
+    <!-- Products Section -->
     <section id="products" class="products-section">
         <div class="container">
             <h2 class="section-title" id="products-title">Our Premium Collection</h2>
@@ -315,54 +298,52 @@
     </section>
 
     <!-- Box Offer -->
-    <section style="background:#111; padding:80px 0; text-align:center;">
+    <section style="background:#111; padding:90px 0; text-align:center;">
         <div class="container">
-            <h2 id="box-title" style="color:var(--accent); font-size:2.7rem;">Special Box Offer</h2>
-            <p id="box-subtitle" style="font-size:1.35rem; max-width:680px; margin:20px auto;">
+            <h2 id="box-title" style="color:var(--accent); font-size:2.8rem;">Special Box Offer</h2>
+            <p id="box-subtitle" style="font-size:1.4rem; max-width:700px; margin:25px auto;">
                 Mix &amp; Match any 12 pieces for only <strong style="color:var(--accent);">150 AED</strong>
             </p>
-            <button onclick="orderBox()" class="cta-button" style="background:#fff; color:#000;">Order Box – اطلب الصندوق</button>
+            <button onclick="orderBox()" class="cta-button" style="background:#fff;color:#000;">Order 12 for 150 AED</button>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <p>Contact us: <strong>+971 50 885 1549</strong></p>
-        <div style="margin-top:30px; font-size:0.9rem;">© 2026 BH.PRO</div>
+        <p>Contact us on WhatsApp: <strong>+971 50 885 1549</strong></p>
+        <div style="margin-top:35px;font-size:0.9rem;">© 2026 BH.PRO - All Rights Reserved</div>
     </footer>
 
     <!-- Image Modal -->
     <div id="imageModal" class="image-modal" onclick="if(event.target.id==='imageModal') closeModal()">
-        <div class="modal-content" onclick="event.stopImmediatePropagation()">
-            <img id="modalImage" src="" alt="">
+        <div onclick="event.stopImmediatePropagation()">
+            <img id="modalImage" src="" alt="" style="max-width:92%; max-height:92vh; border-radius:16px;">
         </div>
     </div>
 
     <!-- Cart Sidebar -->
     <div id="cartSidebar" class="cart-sidebar">
-        <h2 id="cart-title" style="margin-bottom:20px; color:var(--accent);">Your Cart</h2>
+        <h2 id="cart-title" style="color:var(--accent); margin-bottom:25px;">Your Cart</h2>
         <div id="cart-items"></div>
         
-        <div style="margin-top:30px; padding-top:20px; border-top:2px solid #333;">
-            <div style="display:flex; justify-content:space-between; font-size:1.3rem; font-weight:700; margin-bottom:20px;">
+        <div style="margin-top:40px; padding-top:25px; border-top:2px solid #333;">
+            <div style="display:flex;justify-content:space-between;font-size:1.35rem;font-weight:700;">
                 <span id="total-text">Total</span>
                 <span id="cart-total">0 AED</span>
             </div>
-            <button onclick="checkoutCart()" style="width:100%; padding:16px; background:var(--accent); color:#fff; border:none; border-radius:12px; font-size:1.15rem; font-weight:700;">
+            <button onclick="checkoutCart()" style="width:100%;margin-top:25px;padding:17px;background:var(--accent);color:#fff;border:none;border-radius:12px;font-size:1.2rem;font-weight:700;">
                 Send Order via WhatsApp
             </button>
-            <button onclick="closeCart()" style="width:100%; margin-top:12px; padding:14px; background:#333; color:#ddd; border:none; border-radius:12px;">
-                Close
+            <button onclick="closeCart()" style="width:100%;margin-top:12px;padding:15px;background:#333;color:#ddd;border:none;border-radius:12px;">
+                Close Cart
             </button>
         </div>
     </div>
 
-    <!-- Sticky Buy Button -->
-    <button onclick="openCart()" class="sticky-buy" id="sticky-buy-btn">
-        🛒 View Cart / عرض السلة
-    </button>
+    <!-- Sticky Cart Button -->
+    <button onclick="openCart()" class="sticky-buy">🛒 View Cart / عرض السلة</button>
 
-    <!-- Floating WhatsApp -->
+    <!-- WhatsApp Float -->
     <div onclick="openGeneralWhatsApp()" class="whatsapp-float">💬</div>
 
     <script>
@@ -373,17 +354,17 @@
             { id:2, nameEn:"BH.PRO Hard Spots Remover", nameAr:"مزيل البقع الصعبة BH.PRO", image:"https://i.ibb.co/3mcb1trt/IMG-7284.jpg", price:15,
               descEn:"Safe on hands – effective pre-wash stain remover.", descAr:"آمن على اليدين – مزيل فعال للبقع قبل الغسيل." },
             { id:3, nameEn:"Jannat Al-Fawah Strong Perfume (Purple)", nameAr:"عطر جنة الفواح القوي (بنفسجي)", image:"https://i.ibb.co/Y7B86C54/IMG-7279.jpg", price:15,
-              descEn:"Powerful long-lasting fragrance with wide diffusion.", descAr:"عطر قوي طويل الأمد مع انتشار رائع." },
+              descEn:"Powerful long-lasting fragrance.", descAr:"عطر قوي طويل الأمد." },
             { id:4, nameEn:"Jannat Al-Fawah Soft Perfume (Red)", nameAr:"عطر جنة الفواح الناعم (أحمر)", image:"https://i.ibb.co/V0nJW4CY/IMG-7280.jpg", price:15,
-              descEn:"Elegant soft fragrance with high stability.", descAr:"عطر ناعم أنيق مع ثبات عالي." },
+              descEn:"Elegant soft fragrance.", descAr:"عطر ناعم أنيق." },
             { id:5, nameEn:"Jannat Al-Fawah Luxury Perfume (Blue)", nameAr:"عطر جنة الفواح الفاخر (أزرق)", image:"https://i.ibb.co/YF8sD3p2/IMG-7285.jpg", price:15,
-              descEn:"Premium luxury scent with outstanding performance.", descAr:"رائحة فاخرة مميزة بأداء استثنائي." },
+              descEn:"Premium luxury scent.", descAr:"رائحة فاخرة مميزة." },
             { id:6, nameEn:"Jannat Al-Fawah Royal Oud Perfume (Brown)", nameAr:"عطر جنة الفواح العود الملكي (بني)", image:"https://i.ibb.co/9mSytFrM/IMG-7278.jpg", price:15,
-              descEn:"Rich Royal Oud with deep sophisticated notes.", descAr:"عود ملكي غني بنكهات عميقة وأنيقة." }
+              descEn:"Rich Royal Oud fragrance.", descAr:"عود ملكي غني." }
         ];
 
         let currentLang = 'en';
-        let cart = [];   // array of {product, quantity}
+        let cart = [];
 
         function renderProducts() {
             const grid = document.getElementById('products-grid');
@@ -398,8 +379,8 @@
                         <div class="box-offer">12 for 150 AED</div>
                         <h3 class="product-name">${currentLang==='en'?p.nameEn:p.nameAr}</h3>
                         <div class="price">${p.price} AED</div>
-                        <p style="margin:12px 0 18px;font-size:0.97rem;">${currentLang==='en'?p.descEn:p.descAr}</p>
-                        <button onclick="addToCart(${p.id});event.stopImmediatePropagation()" style="width:100%;padding:14px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-weight:600;">Add to Cart</button>
+                        <p style="margin:14px 0 20px; font-size:0.98rem;">${currentLang==='en'?p.descEn:p.descAr}</p>
+                        <button onclick="addToCart(${p.id}); event.stopImmediatePropagation()" style="width:100%; padding:15px; background:var(--accent); color:#fff; border:none; border-radius:10px; font-weight:600;">Add to Cart</button>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -421,7 +402,7 @@
             document.getElementById('lang-btn').textContent = currentLang === 'en' ? 'العربية' : 'English';
             
             document.getElementById('hero-title').innerHTML = currentLang === 'en' ? "Clean Home.<br>Beautiful Life." : "منزل نظيف.<br>حياة جميلة.";
-            document.getElementById('hero-subtitle').textContent = currentLang === 'en' ? "Powerful cleaning & luxury fragrances" : "تنظيف قوي وعطور فاخرة";
+            document.getElementById('hero-subtitle').textContent = currentLang === 'en' ? "Professional cleaning & luxury fragrances" : "تنظيف احترافي وعطور فاخرة";
             document.getElementById('products-title').textContent = currentLang === 'en' ? "Our Premium Collection" : "مجموعتنا الفاخرة";
             document.getElementById('box-title').textContent = currentLang === 'en' ? "Special Box Offer" : "عرض الصندوق الخاص";
             document.getElementById('cart-title').textContent = currentLang === 'en' ? "Your Cart" : "سلة التسوق";
@@ -433,30 +414,24 @@
 
         function addToCart(id) {
             const product = products.find(p => p.id === id);
-            const existing = cart.find(item => item.product.id === id);
-            
-            if (existing) {
-                existing.quantity++;
-            } else {
-                cart.push({product: product, quantity: 1});
-            }
+            const existing = cart.find(i => i.product.id === id);
+            if (existing) existing.quantity++;
+            else cart.push({product, quantity: 1});
             
             renderCart();
-            openCart();   // auto open cart when adding
+            openCart();
         }
 
-        function changeQuantity(id, change) {
+        function changeQuantity(id, delta) {
             const item = cart.find(i => i.product.id === id);
-            if (!item) return;
-            
-            item.quantity += change;
-            if (item.quantity < 1) item.quantity = 1;
-            
-            renderCart();
+            if (item) {
+                item.quantity = Math.max(1, item.quantity + delta);
+                renderCart();
+            }
         }
 
         function removeFromCart(id) {
-            cart = cart.filter(item => item.product.id !== id);
+            cart = cart.filter(i => i.product.id !== id);
             renderCart();
         }
 
@@ -464,11 +439,10 @@
             const container = document.getElementById('cart-items');
             container.innerHTML = '';
             let total = 0;
-            
+
             cart.forEach(item => {
                 const subtotal = item.product.price * item.quantity;
                 total += subtotal;
-                
                 const div = document.createElement('div');
                 div.className = 'cart-item';
                 div.innerHTML = `
@@ -477,17 +451,17 @@
                         <small>${item.product.price} AED × ${item.quantity}</small>
                     </div>
                     <div style="text-align:right;">
-                        <div class="quantity-controls">
-                            <button class="quantity-btn" onclick="changeQuantity(${item.product.id}, -1)">−</button>
-                            <span style="min-width:24px;text-align:center;">${item.quantity}</span>
-                            <button class="quantity-btn" onclick="changeQuantity(${item.product.id}, 1)">+</button>
+                        <div class="quantity-controls" style="display:flex;gap:10px;align-items:center;">
+                            <button onclick="changeQuantity(${item.product.id}, -1)">−</button>
+                            <span>${item.quantity}</span>
+                            <button onclick="changeQuantity(${item.product.id}, 1)">+</button>
                         </div>
-                        <button onclick="removeFromCart(${item.product.id})" style="margin-top:8px;color:#ff6666;background:none;border:none;font-size:0.9rem;">Remove</button>
+                        <button onclick="removeFromCart(${item.product.id})" style="margin-top:10px;color:#ff7777;background:none;border:none;">Remove</button>
                     </div>
                 `;
                 container.appendChild(div);
             });
-            
+
             document.getElementById('cart-total').textContent = total + " AED";
         }
 
@@ -503,56 +477,43 @@
         function checkoutCart() {
             if (cart.length === 0) return;
             
-            let message = currentLang === 'en' 
-                ? "🛍️ *BH.PRO Order / طلب*\n\nHello BH.PRO,\n\nMy order:\n\n"
-                : "🛍️ *طلب BH.PRO*\n\nمرحبا BH.PRO،\n\nطلبي:\n\n";
-            
+            let message = currentLang === 'en' ? "🛍️ *BH.PRO Order*\n\nMy order:\n\n" : "🛍️ *طلب BH.PRO*\n\nطلبي:\n\n";
             let total = 0;
             
             cart.forEach(item => {
                 const name = currentLang === 'en' ? item.product.nameEn : item.product.nameAr;
-                message += `• ${name} × ${item.quantity}   (${item.product.price * item.quantity} AED)\n`;
+                message += `• ${name} × ${item.quantity} (${item.product.price * item.quantity} AED)\n`;
                 total += item.product.price * item.quantity;
             });
             
-            message += `\n──────────────────\n`;
-            message += currentLang === 'en' 
-                ? `Total: ${total} AED\n\nPlease confirm and send delivery details. Thank you!`
-                : `الإجمالي: ${total} درهم\n\nيرجى التأكيد وإرسال تفاصيل التوصيل. شكراً!`;
+            message += `\nTotal: ${total} AED\n\nPlease confirm my order. Thank you!`;
             
             window.open(`https://wa.me/971508851549?text=${encodeURIComponent(message)}`, '_blank');
-            
-            // Clear cart after checkout
             cart = [];
             closeCart();
         }
 
         function orderBox() {
-            const msg = currentLang === 'en'
-                ? "I want the Special Box: 12 pieces for 150 AED (mix & match). Please confirm."
-                : "أريد عرض الصندوق الخاص: ١٢ قطعة بـ ١٥٠ درهم (يمكن الخلط). يرجى التأكيد.";
+            const msg = currentLang === 'en' 
+                ? "I want the Special Box: 12 pieces for 150 AED (mix & match)." 
+                : "أريد عرض الصندوق الخاص: ١٢ قطعة بـ ١٥٠ درهم.";
             window.open(`https://wa.me/971508851549?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
         function openGeneralWhatsApp() {
-            const msg = currentLang === 'en' ? "Hello BH.PRO, I have a question." : "مرحبا BH.PRO، لدي استفسار.";
+            const msg = currentLang === 'en' ? "Hello, I have a question about BH.PRO products." : "مرحبا، لدي استفسار عن منتجات BH.PRO.";
             window.open(`https://wa.me/971508851549?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
         // Initialize
         window.onload = () => {
             renderProducts();
-            
-            // Close modal with Escape
             document.addEventListener('keydown', e => {
                 if (e.key === "Escape") {
-                    const modal = document.getElementById('imageModal');
-                    if (modal.style.display === 'flex') closeModal();
+                    closeModal();
                     closeCart();
                 }
             });
-            
-            console.log('%c✅ BH.PRO Website Updated – Red Theme + Enhanced Cart', 'color:#C8102E; font-size:15px;');
         };
     </script>
 </body>
