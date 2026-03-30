@@ -4,240 +4,225 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>RAPID BH PRO | متجر احترافي كامل</title>
-<meta name="description" content="أقوى متجر مزيلات دهون وبقع في الإمارات بنتائج خلال 60 ثانية">
+<title>RAPID BH PRO | أقوى مزيل دهون وبقع في الإمارات</title>
+
+<meta name="description" content="يزيل الدهون والبقع خلال 30-60 ثانية بدون فرك. نتائج فورية وقوة صناعية. RAPID BH PRO في الإمارات.">
 
 <script src="https://cdn.tailwindcss.com"></script>
+
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
 
 <style>
-body{background:#000;color:#fff;font-family:'Tajawal';overflow-x:hidden}
+body{
+background:#000;
+color:#fff;
+font-family:'Tajawal',sans-serif;
+overflow-x:hidden;
+}
 
-/* NAV */
-.nav{position:fixed;top:0;width:100%;background:rgba(0,0,0,.9);backdrop-filter:blur(10px);z-index:999;padding:10px 20px;display:flex;justify-content:space-between}
+/* HERO */
+.hero{
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.9)),
+url('https://i.ibb.co/9kCQjSsy/IMG-7517.jpg');
+background-size:cover;
+background-position:center;
+}
 
 /* BUTTON */
-.btn{background:#e63946;padding:10px 20px;border-radius:10px;font-weight:900;transition:.3s}
-.btn:hover{transform:scale(1.05);box-shadow:0 10px 20px rgba(230,57,70,.4)}
+.btn{
+background:#e63946;
+padding:14px 30px;
+border-radius:14px;
+font-weight:900;
+transition:.3s;
+}
+.btn:hover{ transform:scale(1.05); }
 
 /* CARD */
-.card{background:#111;border:1px solid #222;padding:20px;border-radius:20px;transition:.3s}
-.card:hover{transform:translateY(-6px);border-color:#e63946}
+.card{
+background:#0f0f11;
+border:1px solid #222;
+padding:20px;
+border-radius:20px;
+transition:.3s;
+}
+.card:hover{
+transform:translateY(-5px);
+border-color:#e63946;
+}
 
-/* PAGE */
-.page{display:none;padding-top:80px}
-.page.active{display:block}
+/* BADGE */
+.badge{
+background:#e63946;
+padding:4px 10px;
+border-radius:8px;
+font-size:12px;
+}
 
-/* MODAL */
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;z-index:9999}
-.modal.active{display:flex}
+/* TRUST */
+.trust{
+background:#09090b;
+padding:40px;
+border-radius:20px;
+}
 
-/* CART */
-#cart{position:fixed;right:-400px;top:0;width:350px;height:100%;background:#111;transition:.4s;padding:20px;overflow:auto}
-#cart.active{right:0}
-
-/* TOAST */
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#e63946;padding:10px 20px;border-radius:10px}
-
-/* ANIM */
-.fade{animation:fade .5s}
-@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1}}
+/* SCROLL */
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-thumb{background:#e63946;}
 </style>
 </head>
 
 <body>
 
-<!-- NAV -->
-<div class="nav">
-<div class="flex gap-4">
-<button onclick="go('home')">الرئيسية</button>
-<button onclick="go('store')">المتجر</button>
-<button onclick="go('about')">من نحن</button>
-<button onclick="go('contact')">تواصل</button>
-</div>
-<button onclick="toggleCart()">🛒</button>
+<!-- HERO -->
+<section class="hero px-6">
+<div>
+<h1 class="text-4xl md:text-6xl font-black mb-6">
+يزيل الدهون خلال 60 ثانية
+</h1>
+
+<p class="text-gray-300 mb-8">
+بدون فرك • نتائج فورية • قوة صناعية
+</p>
+
+<button onclick="goStore()" class="btn text-xl">
+تسوق الآن
+</button>
+
+<div class="mt-10 text-gray-400 text-sm">
+🔥 الأكثر مبيعاً في أبوظبي
 </div>
 
-<!-- HOME -->
-<div id="home" class="page active fade text-center">
-<section class="h-screen flex flex-col justify-center items-center">
-<h1 class="text-5xl font-black mb-4">يزيل الدهون خلال 60 ثانية</h1>
-<p class="text-gray-400 mb-6">قوة صناعية • بدون فرك</p>
-<button class="btn" onclick="go('store')">تسوق</button>
-</section>
 </div>
+</section>
+
+<!-- TRUST -->
+<section class="py-16 px-6 text-center">
+<div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+
+<div class="trust">✔ نتائج مضمونة</div>
+<div class="trust">✔ توصيل سريع</div>
+<div class="trust">✔ دفع عند الاستلام</div>
+
+</div>
+</section>
+
+<!-- VIDEO PROOF -->
+<section class="py-20 px-6 text-center">
+<h2 class="text-3xl font-bold mb-8">شوف القوة بنفسك</h2>
+
+<div class="max-w-3xl mx-auto">
+<iframe class="w-full h-[300px] md:h-[500px] rounded-2xl"
+src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+allowfullscreen></iframe>
+</div>
+</section>
+
+<!-- BEFORE AFTER -->
+<section class="py-20 px-6">
+<h2 class="text-3xl text-center mb-10">قبل / بعد</h2>
+
+<div class="grid grid-cols-2 gap-4 max-w-4xl mx-auto">
+<img src="https://i.ibb.co/3mcb1trt/IMG-7284.jpg" class="rounded-xl" loading="lazy">
+<img src="https://i.ibb.co/KzxfrNkC/IMG-7281.jpg" class="rounded-xl" loading="lazy">
+</div>
+</section>
 
 <!-- STORE -->
-<div id="store" class="page px-6 fade">
-<h2 class="text-3xl mb-6">المنتجات</h2>
+<section id="store" class="py-20 px-6">
+<h2 class="text-4xl text-center mb-14 font-black">المنتجات</h2>
 
-<input placeholder="بحث..." oninput="search(this.value)" class="mb-4">
+<div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
 
-<div id="products" class="grid md:grid-cols-3 gap-6"></div>
+<!-- PRODUCT 1 -->
+<div class="card">
+<div class="badge mb-3">🔥 الأكثر مبيعاً</div>
+<h3 class="text-xl font-bold mb-2">مزيل الدهون</h3>
+<p class="text-gray-400 mb-4">يذيب الدهون خلال 30-60 ثانية بدون فرك</p>
+<p class="text-red-500 font-bold mb-4">15 AED</p>
+<button class="btn w-full" onclick="add('مزيل الدهون')">أضف للسلة</button>
 </div>
 
-<!-- ABOUT -->
-<div id="about" class="page px-6 fade">
-<h2 class="text-3xl mb-4">من نحن</h2>
-<p>نحن نقدم أقوى منتجات التنظيف في الإمارات بجودة عالية.</p>
+<!-- PRODUCT 2 -->
+<div class="card">
+<h3 class="text-xl font-bold mb-2">مزيل البقع</h3>
+<p class="text-gray-400 mb-4">إزالة البقع الصعبة من أول استخدام</p>
+<p class="text-red-500 font-bold mb-4">15 AED</p>
+<button class="btn w-full" onclick="add('مزيل البقع')">أضف للسلة</button>
 </div>
 
-<!-- CONTACT -->
-<div id="contact" class="page px-6 fade">
-<h2 class="text-3xl mb-4">تواصل</h2>
-<input placeholder="اسمك">
-<input placeholder="رسالتك" class="mt-2">
-<button class="btn mt-4">إرسال</button>
+<!-- OFFER -->
+<div class="card">
+<div class="badge mb-3">⚡ عرض خاص</div>
+<h3 class="text-xl font-bold mb-2">باك 3 منتجات</h3>
+<p class="text-gray-400 mb-4">بدل 45 فقط 40</p>
+<p class="text-red-500 font-bold mb-4">40 AED</p>
+<button class="btn w-full" onclick="add('عرض 3')">أضف للسلة</button>
 </div>
 
-<!-- CART -->
-<div id="cart">
-<h3>السلة</h3>
-<div id="cartItems"></div>
-<p id="total"></p>
-
-<select id="shipping">
-<option value="0">استلام</option>
-<option value="10">شحن 10 AED</option>
-</select>
-
-<input id="coupon" placeholder="كوبون">
-<button onclick="applyCoupon()" class="btn mt-2">تطبيق</button>
-
-<button onclick="checkout()" class="btn mt-4 w-full">طلب واتساب</button>
 </div>
+</section>
 
-<!-- PRODUCT MODAL -->
-<div id="productModal" class="modal">
-<div class="card w-96">
-<h3 id="pName"></h3>
-<p id="pDesc"></p>
+<!-- REVIEWS -->
+<section class="py-20 px-6 bg-black text-center">
+<h2 class="text-3xl mb-10">آراء العملاء</h2>
 
-<div id="reviews"></div>
+<div class="max-w-3xl mx-auto space-y-6">
 
-<textarea id="newReview" placeholder="اكتب تقييمك"></textarea>
-<button onclick="addReview()" class="btn mt-2">إضافة تقييم</button>
+<div class="card">"ذوب الدهون خلال ثواني 🔥"</div>
+<div class="card">"أفضل منتج تنظيف جربته"</div>
+<div class="card">"فرق واضح من أول استخدام"</div>
 
-<button onclick="addToCartModal()" class="btn mt-4 w-full">شراء</button>
-<button onclick="closeModal()" class="mt-2">إغلاق</button>
 </div>
-</div>
+</section>
+
+<!-- URGENCY -->
+<section class="py-16 text-center">
+<p class="text-red-500 font-bold text-xl">
+⚠ الكمية محدودة - الطلب عالي
+</p>
+</section>
+
+<!-- CHECKOUT -->
+<section class="py-20 text-center">
+<button onclick="checkout()" class="btn text-xl">
+إرسال الطلب عبر واتساب
+</button>
+</section>
+
+<!-- FOOTER -->
+<footer class="py-10 text-center text-gray-500">
+© RAPID BH PRO - أبوظبي
+</footer>
 
 <script>
-
-/* DATA */
-let products=[
-{id:1,name:"مزيل الدهون",price:15,desc:"يزيل خلال 60 ثانية"},
-{id:2,name:"مزيل البقع",price:15,desc:"أفضل حل للبقع"},
-{id:3,name:"معطر",price:15,desc:"رائحة فخمة"}
-];
-
 let cart=[];
-let selectedProduct=null;
 
-/* NAV */
-function go(id){
-document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-document.getElementById(id).classList.add('active');
+function add(item){
+cart.push(item);
+alert("تمت الإضافة للسلة");
 }
 
-/* PRODUCTS */
-function render(list){
-let html="";
-list.forEach(p=>{
-html+=`
-<div class="card fade">
-<h3>${p.name}</h3>
-<p>${p.price} AED</p>
-<button class="btn mt-2" onclick="openProduct(${p.id})">عرض</button>
-</div>`;
-});
-document.getElementById("products").innerHTML=html;
-}
-render(products);
-
-/* SEARCH */
-function search(q){
-render(products.filter(p=>p.name.includes(q)));
-}
-
-/* PRODUCT PAGE */
-function openProduct(id){
-selectedProduct=products.find(p=>p.id===id);
-document.getElementById("pName").innerText=selectedProduct.name;
-document.getElementById("pDesc").innerText=selectedProduct.desc;
-loadReviews();
-document.getElementById("productModal").classList.add("active");
-}
-
-function closeModal(){
-document.getElementById("productModal").classList.remove("active");
-}
-
-/* REVIEWS */
-function loadReviews(){
-let r=JSON.parse(localStorage.getItem("rev"+selectedProduct.id)||"[]");
-document.getElementById("reviews").innerHTML=r.map(x=>`<div>${x}</div>`).join("");
-}
-
-function addReview(){
-let val=document.getElementById("newReview").value;
-let r=JSON.parse(localStorage.getItem("rev"+selectedProduct.id)||"[]");
-r.push(val);
-localStorage.setItem("rev"+selectedProduct.id,JSON.stringify(r));
-loadReviews();
-}
-
-/* CART */
-function addToCartModal(){
-cart.push(selectedProduct);
-updateCart();
-toast("تمت الإضافة");
-}
-
-function updateCart(){
-let html="";let total=0;
-cart.forEach(i=>{html+=`<div>${i.name}</div>`;total+=i.price});
-document.getElementById("cartItems").innerHTML=html;
-document.getElementById("total").innerText=total+" AED";
-}
-
-/* CART UI */
-function toggleCart(){
-document.getElementById("cart").classList.toggle("active");
-}
-
-/* COUPON */
-function applyCoupon(){
-if(document.getElementById("coupon").value==="SAVE"){
-toast("تم الخصم");
-}else toast("خطأ");
-}
-
-/* CHECKOUT */
 function checkout(){
+if(cart.length===0){
+alert("السلة فارغة");
+return;
+}
+
 let msg="طلب:\n";
-cart.forEach(i=>msg+=i.name+"\n");
+cart.forEach(i=>msg+=i+"\n");
+
 window.open("https://wa.me/971508851549?text="+encodeURIComponent(msg));
-saveOrder();
 }
 
-/* ORDERS */
-function saveOrder(){
-let o=JSON.parse(localStorage.getItem("orders")||"[]");
-o.push(cart);
-localStorage.setItem("orders",JSON.stringify(o));
+function goStore(){
+document.getElementById("store").scrollIntoView({behavior:"smooth"});
 }
-
-/* TOAST */
-function toast(t){
-let el=document.createElement("div");
-el.className="toast";
-el.innerText=t;
-document.body.appendChild(el);
-setTimeout(()=>el.remove(),2000);
-}
-
 </script>
 
 </body>
