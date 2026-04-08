@@ -1,2 +1,286 @@
-ارسل افكارك على 
-q832006@gmail.com
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RAPID BH PRO | المتجر الرسمي الشامل</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Montserrat:wght@900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        :root {
+            --primary: #e63946; --gold: #c5a028; --dark: #000000;
+            --zinc-dark: #09090b; --card: #0f0f11; --glass: rgba(10, 10, 10, 0.9);
+            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --fb-bubble: #242526; --fb-gray: #b0b3b8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Tajawal', sans-serif; background-color: var(--dark); color: #ffffff; overflow-x: hidden; }
+
+        .glass-nav { background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(230, 57, 70, 0.1); padding: 1.2rem 2.5rem !important; }
+        .hero-section { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .hero-bg { position: absolute; inset: 0; background-image: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,1)), url('https://i.ibb.co/9kCQjSsy/IMG-7517.jpg'); background-size: cover; background-position: center 30%; z-index: 1; transform: scale(1.05); animation: heroZoom 10s infinite alternate; }
+        @keyframes heroZoom { from { transform: scale(1.05); } to { transform: scale(1.1); } }
+
+        .side-panel { position: fixed; top: 0; height: 100vh; width: 420px; max-width: 85vw; background: var(--glass); backdrop-filter: blur(40px); z-index: 5000; transition: var(--transition); }
+        #sidebar { left: -450px; border-right: 1px solid rgba(197, 160, 40, 0.3); }
+        #cart-panel { right: -450px; border-left: 1px solid rgba(230, 57, 70, 0.3); }
+        .side-panel.active-left { left: 0 !important; }
+        .side-panel.active-right { right: 0 !important; }
+
+        .product-card { background: var(--card); border: 1px solid #1f1f23; border-radius: 40px; overflow: hidden; transition: var(--transition); }
+        .product-card:hover { transform: translateY(-15px); border-color: var(--primary); }
+        .image-box { position: relative; height: 380px; margin: 15px; border-radius: 30px; overflow: hidden; background: #151518; }
+        .image-box img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .btn-premium { background: linear-gradient(135deg, var(--primary) 0%, #9b1c1c 100%); color: white; font-weight: 900; }
+        .fb-comments-section { background-color: var(--dark); border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.05); }
+        .fb-comment-bubble { background-color: var(--fb-bubble); padding: 12px 18px; border-radius: 20px; display: inline-block; max-width: 90%; }
+        .live-tag { animation: pulse-gold 2s infinite; }
+        @keyframes pulse-gold { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    </style>
+</head>
+<body>
+
+<div id="master-overlay" class="fixed inset-0 bg-black/80 hidden z-[4500]" onclick="closePanels()"></div>
+
+<div id="box-modal" class="fixed inset-0 z-[6000] bg-black/95 hidden items-center justify-center p-4 backdrop-blur-2xl">
+    <div class="bg-zinc-900 w-full max-w-2xl rounded-[50px] p-10 border border-white/5">
+        <h2 class="text-4xl font-black text-red-600 mb-2">صمم بوكس الـ 12</h2>
+        <div id="box-options-list" class="space-y-4 mb-10"></div>
+        <div class="flex gap-4">
+            <button onclick="confirmBoxSelection()" id="confirm-box-btn" class="flex-1 bg-green-600 py-6 rounded-3xl font-black opacity-40">إضافة للسلة</button>
+            <button onclick="closeBoxModal()" class="px-10 bg-white/5 py-6 rounded-3xl font-bold">إلغاء</button>
+        </div>
+    </div>
+</div>
+
+<nav class="fixed top-0 w-full z-[4000] py-8 px-10 transition-all" id="nav-bar">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <button onclick="openSidebar()" class="text-4xl"><i class="fas fa-bars-staggered"></i></button>
+        <div class="text-3xl font-black italic">RAPID BH<span class="text-red-600">PRO</span></div>
+        <div class="flex items-center gap-6">
+            <button onclick="toggleLang()" class="font-black" id="lang-switcher">EN</button>
+            <button onclick="openCart()" class="relative">
+                <div id="cart-dot" class="absolute -top-2 -right-2 bg-red-600 text-[10px] w-6 h-6 rounded-full flex items-center justify-center font-black">0</div>
+                <i class="fas fa-shopping-bag text-3xl"></i>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<aside id="sidebar" class="side-panel p-12 flex flex-col">
+    <button onclick="closePanels()" class="text-5xl self-end">&times;</button>
+    <nav class="flex flex-col gap-12 text-5xl font-black italic mt-10">
+        <a onclick="navigate('hero')">الرئيسية</a>
+        <a onclick="navigate('store')">المتجر</a>
+        <a onclick="navigate('reviews')">الآراء</a>
+    </nav>
+</aside>
+
+<aside id="cart-panel" class="side-panel flex flex-col">
+    <div class="p-12 border-b border-white/5 flex justify-between">
+        <h2 class="text-4xl font-black italic">سلة التسوق</h2>
+        <button onclick="closePanels()" class="text-5xl">&times;</button>
+    </div>
+    <div id="cart-content" class="flex-1 overflow-y-auto p-8"></div>
+    <div class="p-12 border-t border-white/10">
+        <div class="flex justify-between text-3xl font-black mb-10">
+            <span>المجموع:</span> <span id="cart-total" class="text-gold">0 AED</span>
+        </div>
+        <button onclick="showCheckout()" class="w-full btn-premium py-8 rounded-[30px] text-2xl font-black">إتمام الطلب</button>
+    </div>
+</aside>
+
+<section id="hero" class="hero-section">
+    <div class="hero-bg"></div>
+    <div class="relative z-10 text-center">
+        <h1 class="text-7xl md:text-[140px] font-black italic tracking-tighter">RAPID <span class="text-red-600">BH</span></h1>
+        <button onclick="navigate('store')" class="btn-premium px-16 py-7 rounded-full text-2xl mt-10">اكتشف المجموعة</button>
+    </div>
+</section>
+
+<section id="store" class="py-40 px-8">
+    <div class="max-w-7xl mx-auto">
+        <h2 class="text-6xl font-black italic mb-20 text-center">المتجر</h2>
+        <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16"></div>
+    </div>
+</section>
+
+<section id="reviews" class="py-40 bg-zinc-950 px-8">
+    <div class="max-w-4xl mx-auto">
+        <h3 class="text-6xl font-black italic mb-20 text-center">ماذا يقول زبائننا</h3>
+        <div class="fb-comments-section p-10 bg-black/30 rounded-[30px] border border-white/5">
+            <div class="flex justify-between items-center mb-8 border-b border-white/5 pb-6">
+                <span class="font-bold text-gray-400">التعليقات</span>
+                <span class="text-red-600 font-bold live-tag">● مباشر</span>
+            </div>
+            <div class="flex gap-4 mb-12 bg-white/5 p-6 rounded-2xl">
+                <div class="flex-1 space-y-3">
+                    <input type="text" id="reviewer-name" placeholder="اسمك الكريم" class="w-full bg-black/40 border border-white/10 p-4 rounded-xl text-white outline-none">
+                    <textarea id="reviewer-text" placeholder="اكتب رأيك..." rows="2" class="w-full bg-black/40 border border-white/10 p-4 rounded-xl text-white outline-none resize-none"></textarea>
+                    <button onclick="postCommentToSupabase()" class="btn-premium px-8 py-3 rounded-xl font-black">نشر</button>
+                </div>
+            </div>
+            <div id="fb-comment-list" class="space-y-8"></div>
+        </div>
+    </div>
+</section>
+
+<div id="checkout-modal" class="fixed inset-0 z-[20000] bg-black hidden items-center justify-center p-4">
+    <div class="bg-zinc-900 w-full max-w-2xl rounded-[40px] p-10 relative">
+        <button onclick="closeCheckout()" class="absolute top-8 right-8 text-4xl">&times;</button>
+        <h2 class="text-4xl font-black mb-10 text-red-600 italic">تأكيد الطلب</h2>
+        <form onsubmit="handleFinalSubmit(event)" class="space-y-6">
+            <input type="text" id="c-name" placeholder="الاسم الكامل" class="w-full bg-black border border-white/10 p-5 rounded-2xl text-white" required>
+            <input type="tel" id="c-phone" placeholder="رقم الهاتف" class="w-full bg-black border border-white/10 p-5 rounded-2xl text-white" required>
+            <button type="submit" class="w-full btn-premium py-6 rounded-2xl font-black text-2xl">إرسال للواتساب</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // --- إعدادات Supabase ---
+    const SUPABASE_URL = 'https://wmbozoabyhoszrukkoek.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_ICgREpxCsbDTgmBgSycvTA_mnaxkVge';
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const PRODUCTS = [
+        { id: 1, name: "معطر عود ملكي", nameEn: "Royal Oud", price: 15, img: "https://i.ibb.co/9mSytFrM/IMG-7278.jpg", info: "ثبات عالي للأقمشة." },
+        { id: 2, name: "معطر العطور العربية", nameEn: "Luxury Fragrance", price: 15, img: "https://i.ibb.co/YF8sD3p2/IMG-7285.jpg", info: "رائحة فخمة تدوم طويلاً." },
+        { id: 3, name: "معطر زهور بيضاء", nameEn: "White Flowers", price: 15, img: "https://i.ibb.co/V0nJW4CY/IMG-7280.jpg", info: "انتعاش الزهور الطبيعية." },
+        { id: 4, name: "معطر فواكه إستوائيه", nameEn: "Fresh Fruits", price: 15, img: "https://i.ibb.co/Y7B86C54/IMG-7279.jpg", info: "مزيج فواكه صيفيه منعشة." },
+        { id: 5, name: "مزيل البقع الصعبه", nameEn: "Stain Remover", price: 15, img: "https://i.ibb.co/3mcb1trt/IMG-7284.jpg", info: "لإزالة أصعب البقع." },
+        { id: 6, name: "مزيل الدهون والشحوم", nameEn: "Grease Killer", price: 15, img: "https://i.ibb.co/KzxfrNkC/IMG-7281.jpg", info: "قوة مضاعفة للدهون." },
+        { id: 7, name: "بوكس التوفير (12 عبوة)", nameEn: "12 Pack Box", price: 150, isBox: true, info: "صمم بوكسك ووفر 30 درهم." }
+    ];
+
+    let state = {
+        lang: 'ar',
+        cart: JSON.parse(localStorage.getItem('rapid_pro_cart')) || [],
+        boxSelection: {},
+        comments: []
+    };
+
+    // --- الربط مع قاعدة البيانات ---
+    async function fetchComments() {
+        const { data, error } = await supabaseClient.from('comments').select('*').order('created_at', { ascending: false });
+        if (!error && data) { state.comments = data; renderCommentsUI(); }
+    }
+
+    async function postCommentToSupabase() {
+        const n = document.getElementById('reviewer-name'), t = document.getElementById('reviewer-text');
+        if (!n.value || !t.value) return alert('أكمل البيانات');
+        const { error } = await supabaseClient.from('comments').insert([{ name: n.value, text: t.value }]);
+        if (!error) { n.value = ''; t.value = ''; fetchComments(); }
+    }
+
+    function renderCommentsUI() {
+        const list = document.getElementById('fb-comment-list');
+        list.innerHTML = state.comments.map(c => `
+            <div class="flex gap-4 items-start animate__animated animate__fadeIn">
+                <div class="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center font-black text-white shadow-lg">${c.name.charAt(0).toUpperCase()}</div>
+                <div class="fb-comment-bubble border border-white/5">
+                    <div class="font-black text-white text-sm mb-1">${c.name}</div>
+                    <div class="text-zinc-300 text-[15px]">${c.text}</div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // --- وظائف المتجر ---
+    function renderProducts() {
+        const grid = document.getElementById('products-grid');
+        grid.innerHTML = PRODUCTS.map(p => `
+            <div class="product-card">
+                <div class="image-box" onclick="${p.isBox ? 'openBoxWizard()' : ''}">
+                    ${p.isBox ? `<div class="h-full flex items-center justify-center bg-zinc-800 text-gold font-black">12 PCS BOX</div>` : `<img src="${p.img}">`}
+                    <div class="absolute bottom-4 left-4 bg-black/80 px-4 py-2 rounded-xl text-gold font-black">${p.price} AED</div>
+                </div>
+                <div class="p-10">
+                    <h3 class="text-2xl font-black mb-4">${state.lang === 'ar' ? p.name : p.nameEn}</h3>
+                    <button onclick="${p.isBox ? 'openBoxWizard()' : `addToCart(${p.id})`}" class="w-full btn-premium py-4 rounded-xl font-black">
+                        ${p.isBox ? 'تخصيص البوكس' : 'إضافة للسلة'}
+                    </button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function openBoxWizard() {
+        state.boxSelection = {}; PRODUCTS.slice(0, 6).forEach(p => state.boxSelection[p.name] = 0);
+        renderBoxOptions(); document.getElementById('box-modal').classList.remove('hidden');
+    }
+
+    function renderBoxOptions() {
+        const list = document.getElementById('box-options-list');
+        let total = Object.values(state.boxSelection).reduce((a, b) => a + b, 0);
+        list.innerHTML = PRODUCTS.slice(0, 6).map(p => `
+            <div class="flex justify-between bg-white/5 p-4 rounded-2xl">
+                <span>${p.name}</span>
+                <div class="flex gap-4">
+                    <button onclick="updateBoxItem('${p.name}', -1)">-</button>
+                    <span class="text-red-600 font-black">${state.boxSelection[p.name]}</span>
+                    <button onclick="updateBoxItem('${p.name}', 1)">+</button>
+                </div>
+            </div>
+        `).join('');
+        document.getElementById('confirm-box-btn').style.opacity = total === 12 ? "1" : "0.4";
+    }
+
+    function updateBoxItem(name, delta) {
+        let total = Object.values(state.boxSelection).reduce((a, b) => a + b, 0);
+        if ((delta > 0 && total >= 12) || (delta < 0 && state.boxSelection[name] <= 0)) return;
+        state.boxSelection[name] += delta; renderBoxOptions();
+    }
+
+    function confirmBoxSelection() {
+        if (Object.values(state.boxSelection).reduce((a, b) => a + b, 0) !== 12) return;
+        const sum = Object.entries(state.boxSelection).filter(([_, q]) => q > 0).map(([n, q]) => `${n}(${q})`).join(', ');
+        state.cart.push({ id: 7, name: `بوكس مخصص: ${sum}`, price: 150, qty: 1 });
+        saveAndSync(); closeBoxModal();
+    }
+
+    function addToCart(id) {
+        const p = PRODUCTS.find(x => x.id === id);
+        state.cart.push({...p, qty: 1}); saveAndSync();
+    }
+
+    function renderCart() {
+        const c = document.getElementById('cart-content');
+        c.innerHTML = state.cart.map((item, i) => `
+            <div class="bg-white/5 p-4 rounded-2xl flex justify-between">
+                <div>${item.name} x${item.qty}</div>
+                <div class="text-gold font-black">${item.price * item.qty} AED</div>
+            </div>
+        `).join('');
+        document.getElementById('cart-total').innerText = `${state.cart.reduce((a, b) => a + (b.price * b.qty), 0)} AED`;
+    }
+
+    function handleFinalSubmit(e) {
+        e.preventDefault();
+        let msg = `طلب من ${document.getElementById('c-name').value}:\n`;
+        state.cart.forEach(i => msg += `• ${i.name} x${i.qty}\n`);
+        window.open(`https://wa.me/971508851549?text=${encodeURIComponent(msg)}`);
+    }
+
+    function saveAndSync() { localStorage.setItem('rapid_pro_cart', JSON.stringify(state.cart)); updateUI(); renderCart(); }
+    function updateUI() { document.getElementById('cart-dot').innerText = state.cart.length; }
+    function openSidebar() { document.getElementById('sidebar').classList.add('active-left'); document.getElementById('master-overlay').classList.remove('hidden'); }
+    function openCart() { document.getElementById('cart-panel').classList.add('active-right'); document.getElementById('master-overlay').classList.remove('hidden'); renderCart(); }
+    function closePanels() { document.querySelectorAll('.side-panel').forEach(p => p.classList.remove('active-left', 'active-right')); document.getElementById('master-overlay').classList.add('hidden'); }
+    function closeBoxModal() { document.getElementById('box-modal').classList.add('hidden'); }
+    function closeCheckout() { document.getElementById('checkout-modal').classList.add('hidden'); }
+    function showCheckout() { document.getElementById('checkout-modal').classList.remove('hidden'); }
+    function navigate(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); closePanels(); }
+
+    window.onload = () => { renderProducts(); updateUI(); fetchComments(); };
+</script>
+</body>
+</html>
