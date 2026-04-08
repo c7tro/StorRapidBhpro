@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>RAPID BH PRO | المتجر الرسمي الشامل</title>
     
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Montserrat:wght@900&display=swap" rel="stylesheet">
@@ -419,11 +417,6 @@
 </div>
 
 <script>
-    // --- إعدادات Supabase للتعليقات ---
-    const SUPABASE_URL = 'https://wmbozoabyhoszrukkoek.supabase.co';
-    const SUPABASE_KEY = 'sb_publishable_ICgREpxCsbDTgmBgSycvTA_mnaxkVge';
-    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
     /* --- DATA CENTER --- */
     const PRODUCTS = [
         { id: 1, name: "معطر عود ملكي", nameEn: "Royal Oud", price: 15, img: "https://i.ibb.co/9mSytFrM/IMG-7278.jpg", info: "ثبات عالي للأقمشة والفرش براحه العود الملكي.", infoEn: "Premium Oud scent for luxury fabrics." },
@@ -435,86 +428,33 @@
         { id: 7, name: "بوكس التوفير (12 عبوة)", nameEn: "Mega Savings (12 Pack)", price: 150, isBox: true, info: "صمم بوكسك الخاص ووفر 30 درهم.", infoEn: "Custom build your pack & save 30 AED." }
     ];
 
+    /* -- PRELOADED FB COMMENTS (حرفياً كما كانت) -- */
+    const FB_COMMENTS_DATA = [
+        { id: 1, name: "خالد سعيد", initial: "K", color: "bg-emerald-600", text: "يا جماعة العود الملكي ريحته خنينة وما تمزح، والثبات عجيب! طلبت البوكس المشكل والحمدلله توفقت.", time: "٢ د", likes: 12, liked: false },
+        { id: 2, name: "Sarah Williams", initial: "S", color: "bg-blue-600", text: "Perfect quality. The 'Luxury Fragrance' smells exactly like 5-star hotels in Dubai. Fast delivery to Abu Dhabi!", time: "١٥ د", likes: 8, liked: false },
+        { id: 3, name: "عفراء الهاملي", initial: "ع", color: "bg-red-600", text: "مزيل الدهون جربته على عيون الفرن وتفاجأت، ذوب الدهون في ثواني. المنتج يبيض الويه.", time: "٤٠ د", likes: 24, liked: true },
+        { id: 4, name: "بو راشد", initial: "B", color: "bg-gold", text: "تعامل راقي ومنتجات توب. الزهور البيضاء ريحته هادية وتنفع للغرف والصالة. شكرًا RAPID BH.", time: "١ ساعة", likes: 5, liked: false },
+        { id: 5, name: "مريم البلوشي", initial: "M", color: "bg-purple-600", text: "وصلني البوكس اليوم التغليف مرتب وايد وتنفع هدايا. كل ريحة أحلى عن الثانية.", time: "٢ ساعة", likes: 19, liked: false },
+        { id: 6, name: "خليفةالرميثي", initial: "خ", color: "bg-zinc-700", text: "جربت مزيل البقع على الكنبة والحمدلله شل البقعة. كواليتي عالي وسعر ممتاز.", time: "٥ ساعة", likes: 7, liked: false }
+    ];
+
     let state = {
         lang: 'ar',
         cart: JSON.parse(localStorage.getItem('rapid_pro_cart')) || [],
         boxSelection: {},
-        comments: [], // يتم تحميلها من السيرفر
-        visibleComments: 5
+        comments: [...FB_COMMENTS_DATA], // البداية بالتعليقات القديمة
+        visibleComments: 5 
     };
 
     /* --- INITIALIZATION --- */
     function init() {
         renderProducts();
-        fetchComments(); // تحميل التعليقات من Supabase
+        renderFBComments();
         updateUI();
         setupNavScroll();
     }
 
-    /* --- FB COMMENTS LOGIC (SUPABASE) --- */
-    async function fetchComments() {
-        const { data, error } = await supabaseClient
-            .from('comments')
-            .select('*')
-            .order('created_at', { ascending: false });
-
-        if (!error && data) {
-            state.comments = data;
-            renderFBComments();
-        }
-    }
-
-    async function postComment() {
-        const nameInput = document.getElementById('reviewer-name');
-        const textInput = document.getElementById('reviewer-text');
-        
-        if (!nameInput.value.trim() || !textInput.value.trim()) {
-            toast(state.lang === 'ar' ? 'يرجى كتابة الاسم والتعليق' : 'Please fill Name and Comment');
-            return;
-        }
-
-        const { error } = await supabaseClient
-            .from('comments')
-            .insert([{ name: nameInput.value, text: textInput.value }]);
-
-        if (!error) {
-            nameInput.value = ''; textInput.value = '';
-            fetchComments();
-            toast(state.lang === 'ar' ? 'شكراً لرأيك! تم النشر' : 'Thanks! Post published');
-        }
-    }
-
-    function renderFBComments() {
-        const list = document.getElementById('fb-comment-list');
-        const sliced = state.comments.slice(0, state.visibleComments);
-        
-        list.innerHTML = sliced.map(c => `
-            <div class="flex gap-4 items-start animate__animated animate__fadeInUp">
-                <div class="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center font-black text-xl text-white flex-shrink-0 shadow-lg">
-                    ${c.name.charAt(0).toUpperCase()}
-                </div>
-                <div class="flex flex-col items-start min-w-0">
-                    <div class="fb-comment-bubble border border-white/5 shadow-md mb-2">
-                        <div class="font-black text-white text-sm mb-1">${c.name}</div>
-                        <div class="text-white text-[15px] leading-snug">${c.text}</div>
-                    </div>
-                </div>
-            </div>
-        `).join('');
-
-        if (state.comments.length > state.visibleComments) {
-            document.getElementById('show-more-container').classList.remove('hidden');
-        } else {
-            document.getElementById('show-more-container').classList.add('hidden');
-        }
-    }
-
-    function showMoreComments() {
-        state.visibleComments += 5;
-        renderFBComments();
-    }
-
-    /* --- UI RENDERING (ORIGINAL - NO CHANGES) --- */
+    /* --- UI RENDERING --- */
     function renderProducts() {
         const grid = document.getElementById('products-grid');
         grid.innerHTML = PRODUCTS.map(p => `
@@ -578,7 +518,55 @@
         document.getElementById('cart-total').innerText = `${total} AED`;
     }
 
-    /* --- LOGIC CENTER (ORIGINAL) --- */
+    /* --- FB COMMENTS RENDERING --- */
+    function renderFBComments() {
+        const list = document.getElementById('fb-comment-list');
+        const showMore = document.getElementById('show-more-container');
+        
+        const sliced = state.comments.slice(0, state.visibleComments);
+        
+        list.innerHTML = sliced.map(c => `
+            <div class="flex gap-4 items-start animate__animated animate__fadeInUp">
+                <div class="w-12 h-12 rounded-full ${c.color} flex items-center justify-center font-black text-xl text-white flex-shrink-0 shadow-lg">
+                    ${c.initial}
+                </div>
+                
+                <div class="flex flex-col items-start min-w-0">
+                    <div class="fb-comment-bubble border border-white/5 shadow-md mb-2">
+                        <div class="font-black text-white text-sm mb-1">${c.name}</div>
+                        <div class="text-white text-[15px] leading-snug">${c.text}</div>
+                    </div>
+                    
+                    <div class="flex items-center text-xs ml-3">
+                        <span onclick="toggleLikeComment(${c.id})" class="fb-action-btn ${c.liked ? 'active' : ''}">${state.lang === 'ar' ? 'أعجبني' : 'Like'}</span>
+                        <span class="fb-action-btn">${state.lang === 'ar' ? 'رد' : 'Reply'}</span>
+                        <span class="text-gray-500 font-medium">${c.time}</span>
+                        ${c.likes > 0 ? `
+                            <div class="flex items-center gap-1.5 bg-zinc-800/80 px-2 py-1 rounded-full ml-3 border border-white/5">
+                                <div class="w-4 h-4 rounded-full bg-red-600 flex items-center justify-center scale-90">
+                                    <i class="fas fa-thumbs-up text-[8px] text-white"></i>
+                                </div>
+                                <span class="text-red-500 font-bold">${c.likes}</span>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        if (state.comments.length > state.visibleComments) {
+            showMore.classList.remove('hidden');
+        } else {
+            showMore.classList.add('hidden');
+        }
+    }
+
+    function showMoreComments() {
+        state.visibleComments += 5;
+        renderFBComments();
+    }
+
+    /* --- LOGIC CENTER --- */
     function viewImage(url) {
         document.getElementById('full-img').src = url;
         document.getElementById('image-overlay').classList.remove('hidden');
@@ -591,7 +579,10 @@
         document.getElementById('lang-switcher').innerText = state.lang === 'ar' ? 'EN' : 'AR';
         document.querySelectorAll('[data-ar]').forEach(el => el.innerText = el.getAttribute(`data-${state.lang}`));
         document.querySelectorAll('[data-ar-placeholder]').forEach(el => el.placeholder = el.getAttribute(`data-${state.lang}-placeholder`));
-        renderProducts(); renderCart(); renderFBComments(); closePanels();
+        renderProducts();
+        renderCart();
+        renderFBComments();
+        closePanels();
     }
 
     function addToCart(id) {
@@ -645,6 +636,37 @@
         const summary = Object.entries(state.boxSelection).filter(([_, qty]) => qty > 0).map(([n, qty]) => `${n} (${qty})`).join(', ');
         state.cart.push({ id: 7, name: `بوكس 12 حبة: ${summary}`, price: 150, qty: 1, isBox: true });
         saveAndSync(); closeBoxModal(); openCart();
+    }
+
+    function toggleLikeComment(id) {
+        const comment = state.comments.find(c => c.id === id);
+        if (comment.liked) { comment.likes--; comment.liked = false; } else { comment.likes++; comment.liked = true; }
+        renderFBComments();
+    }
+
+    function postComment() {
+        const nameInput = document.getElementById('reviewer-name');
+        const textInput = document.getElementById('reviewer-text');
+        if (!nameInput.value.trim() || !textInput.value.trim()) {
+            toast(state.lang === 'ar' ? 'يرجى كتابة الاسم والتعليق' : 'Please fill Name and Comment');
+            nameInput.classList.add('border-red-600');
+            return;
+        }
+        nameInput.classList.remove('border-red-600');
+        const newComment = {
+            id: Date.now(),
+            name: nameInput.value,
+            initial: nameInput.value.charAt(0).toUpperCase(),
+            color: 'bg-red-600',
+            text: textInput.value,
+            time: state.lang === 'ar' ? 'الآن' : 'Just Now',
+            likes: 0,
+            liked: false
+        };
+        state.comments.unshift(newComment); // إضافة التعليق الجديد في البداية
+        nameInput.value = ''; textInput.value = '';
+        renderFBComments();
+        toast(state.lang === 'ar' ? 'شكراً لرأيك! تم النشر' : 'Thanks! Post published');
     }
 
     function showCheckout() { if(state.cart.length > 0) document.getElementById('checkout-modal').style.display = 'flex'; }
