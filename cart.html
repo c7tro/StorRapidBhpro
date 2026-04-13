@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سلة التسوق | RAPID BH PRO</title>
+    
+    <!-- Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#c5a028',
+                        primary: '#e63946',
+                        dark: '#0a0a0a',
+                        glass: 'rgba(255,255,255,0.05)',
+                        glassBorder: 'rgba(255,255,255,0.1)'
+                    },
+                    fontFamily: {
+                        tajawal: ['Tajawal', 'sans-serif'],
+                        playfair: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: #0a0a0a;
+            color: white;
+            min-height: 100vh;
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .glass-strong {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(197,160,40,0.2);
+        }
+
+        /* Navigation */
+        .nav-glass {
+            background: rgba(10,10,10,0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Cart Item */
+        .cart-item {
+            background: rgba(255,255,255,0.02);
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.06);
+            padding: 20px;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            transition: all 0.3s;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .cart-item:hover {
+            border-color: rgba(197,160,40,0.2);
+            background: rgba(255,255,255,0.04);
+        }
+
+        .cart-item-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 16px;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, rgba(197,160,40,0.1) 0%, rgba(230,57,70,0.1) 100%);
+        }
+
+        .cart-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cart-item-image.box-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: #c5a028;
+        }
+
+        /* Quantity Control */
+        .qty-control {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(0,0,0,0.3);
+            padding: 4px;
+            border-radius: 12px;
+            width: fit-content;
+        }
+
+        .qty-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: all 0.2s;
+            background: transparent;
+        }
+
+        .qty-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .qty-btn.minus { color: #ef4444; }
+        .qty-btn.plus { color: #22c55e; }
+
+        .qty-value {
+            font-size: 18px;
+            font-weight: 900;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        /* Remove Button */
+        .remove-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ef4444;
+            transition: all 0.2s;
+            background: rgba(239,68,68,0.1);
+        }
+
+        .remove-btn:hover {
+            background: #ef4444;
+            color: white;
+        }
+
+        /* Summary Card */
+        .summary-card {
+            background: linear-gradient(135deg, rgba(197,160,40,0.05) 0%, rgba(230,57,70,0.05) 100%);
+            border-radius: 24px;
+            border: 1px solid rgba(197,160,40,0.15);
+            padding: 24px;
+            position: sticky;
+            top: 100px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .summary-row:last-of-type {
+            border-bottom: none;
+        }
+
+        .summary-total {
+            font-size: 24px;
+            font-weight: 900;
+            color: #c5a028;
+        }
+
+        /* Checkout Button */
+        .checkout-btn {
+            background: linear-gradient(135deg, #e63946 0%, #9b1c1c 100%);
+            color: white;
+            width: 100%;
+            padding: 20px;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(230,57,70,0.3);
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(230,57,70,0.5);
+        }
+
+        .checkout-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Empty Cart */
+        .empty-cart {
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .empty-cart-icon {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 30px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: rgba(255,255,255,0.2);
+            border: 2px dashed rgba(255,255,255,0.1);
+        }
+
+        /* Progress Bar */
+        .progress-section {
+            background: rgba(255,255,255,0.02);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 12px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #c5a028, #e63946);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        /* Coupon */
+        .coupon-input {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .coupon-input input {
+            flex: 1;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 12px 16px;
+            border-radius: 12px;
+            color: white;
+            outline: none;
+        }
+
+        .coupon-input input:focus {
+            border-color: #c5a028;
+        }
+
+        .coupon-btn {
+            background: rgba(255,255,255,0.1);
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+
+        .coupon-btn:hover {
+            background: #c5a028;
+            color: black;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            inset: 0;
+            background: rgba(10,10,10,0.98);
+            backdrop-filter: blur(20px);
+            z-index: 6000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+        }
+
+        .mobile-menu.hidden {
+            display: none;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #e63946 0%, #9b1c1c 100%);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 16px;
+            font-weight: 800;
+            z-index: 99999;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #c5a028; border-radius: 3px; }
+
+        /* Free Shipping Badge */
+        .free-shipping-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(34,197,94,0.2);
+            color: #22c55e;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cart-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cart-item-image {
+                width: 120px;
+                height: 120px;
+            }
+
+            .cart-item-details {
+                width: 100%;
+            }
+
+            .qty-control {
+                margin: 0 auto;
+            }
+
+            .summary-card {
+                position: static;
+                margin-top: 24px;
+            }
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .animate-pulse-slow {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-[5000] transition-all duration-500 py-4 px-4 md:py-6 md:px-8">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <button onclick="toggleMenu()" class="text-xl hover:text-gold transition p-2">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="index.html" class="text-sm font-bold text-gray-400 hover:text-white transition flex items-center gap-2">
+                <i class="fas fa-arrow-right"></i>
+                <span class="hidden md:inline">مواصلة التسوق</span>
+            </a>
+        </div>
+
+        <a href="index.html" class="text-xl md:text-2xl font-black font-['Playfair_Display'] italic tracking-tight">
+            RAPID <span class="text-gold">BH</span>
+        </a>
+
+        <div class="w-10"></div>
+    </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="mobile-menu hidden">
+    <button onclick="toggleMenu()" class="absolute top-6 left-6 text-4xl hover:text-primary transition">&times;</button>
+    <a href="index.html" onclick="toggleMenu()" class="text-3xl font-black italic hover:text-gold transition">الرئيسية</a>
+    <a href="index.html#products" onclick="toggleMenu()" class="text-3xl font-black italic hover:text-gold transition">المتجر</a>
+</div>
+
+<!-- Main Content -->
+<main class="pt-24 pb-12 px-4 md:px-8 max-w-7xl mx-auto">
+    
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-8">
+        <h1 class="text-2xl md:text-3xl font-black italic font-['Playfair_Display']">
+            سلة <span class="text-gold">التسوق</span>
+            <span id="items-count" class="text-lg text-gray-500 font-normal mr-2">(0)</span>
+        </h1>
+        <button onclick="clearCart()" class="text-sm text-red-500 hover:text-red-400 transition flex items-center gap-2">
+            <i class="fas fa-trash-alt"></i>
+            <span class="hidden md:inline">إفراغ السلة</span>
+        </button>
+    </div>
+
+    <!-- Empty Cart State -->
+    <div id="empty-cart" class="empty-cart hidden">
+        <div class="empty-cart-icon">
+            <i class="fas fa-shopping-basket"></i>
+        </div>
+        <h2 class="text-2xl font-bold mb-4">سلتك فارغة</h2>
+        <p class="text-gray-400 mb-8">ابدأ التسوق واكتشف منتجاتنا الفاخرة</p>
+        <a href="index.html#products" class="glass-strong px-8 py-4 rounded-full font-bold inline-flex items-center gap-3 hover:brightness-110 transition">
+            <i class="fas fa-shopping-bag"></i>
+            تصفح المنتجات
+        </a>
+    </div>
+
+    <!-- Cart Content -->
+    <div id="cart-content" class="grid md:grid-cols-3 gap-6">
+        
+        <!-- Items List -->
+        <div class="md:col-span-2 space-y-4" id="cart-items">
+            <!-- Dynamic items -->
+        </div>
+
+        <!-- Summary -->
+        <div class="md:col-span-1">
+            <div class="summary-card">
+                <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
+                    <i class="fas fa-receipt text-gold"></i>
+                    ملخص الطلب
+                </h3>
+
+                <!-- Free Shipping Progress -->
+                <div class="progress-section">
+                    <div class="flex justify-between text-sm mb-2">
+                        <span class="text-gray-400">الشحن</span>
+                        <span id="shipping-status">احسب...</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div id="shipping-progress" class="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <p id="shipping-message" class="text-xs text-gray-500 mt-2">أضف منتجات بـ 100 درهم للشحن المجاني</p>
+                </div>
+
+                <!-- Totals -->
+                <div class="space-y-2 mb-4">
+                    <div class="summary-row">
+                        <span class="text-gray-400">المجموع الفرعي</span>
+                        <span id="subtotal">0 درهم</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="text-gray-400">الشحن</span>
+                        <span id="shipping">0 درهم</span>
+                    </div>
+                    <div class="summary-row hidden" id="discount-row">
+                        <span class="text-green-500">الخصم</span>
+                        <span id="discount" class="text-green-500">-0 درهم</span>
+                    </div>
+                </div>
+
+                <div class="border-t border-white/10 pt-4">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-lg">الإجمالي</span>
+                        <span class="summary-total" id="total">0 درهم</span>
+                    </div>
+                </div>
+
+                <!-- Coupon -->
+                <div class="coupon-input">
+                    <input type="text" id="coupon-code" placeholder="كود الخصم">
+                    <button onclick="applyCoupon()" class="coupon-btn">تطبيق</button>
+                </div>
+
+                <!-- Checkout Button -->
+                <button onclick="goToCheckout()" class="checkout-btn" id="checkout-btn">
+                    <i class="fas fa-credit-card"></i>
+                    إتمام الشراء
+                </button>
+
+                <!-- Payment Methods -->
+                <div class="flex justify-center gap-4 mt-6 text-2xl text-gray-500">
+                    <i class="fab fa-cc-visa hover:text-white transition"></i>
+                    <i class="fab fa-cc-mastercard hover:text-white transition"></i>
+                    <i class="fab fa-cc-apple-pay hover:text-white transition"></i>
+                </div>
+            </div>
+
+            <!-- Trust Badges -->
+            <div class="grid grid-cols-3 gap-3 mt-4">
+                <div class="glass p-3 rounded-xl text-center">
+                    <i class="fas fa-shield-alt text-gold text-xl mb-1"></i>
+                    <p class="text-xs text-gray-400">دفع آمن</p>
+                </div>
+                <div class="glass p-3 rounded-xl text-center">
+                    <i class="fas fa-undo text-gold text-xl mb-1"></i>
+                    <p class="text-xs text-gray-400">استرجاع سهل</p>
+                </div>
+                <div class="glass p-3 rounded-xl text-center">
+                    <i class="fas fa-headset text-gold text-xl mb-1"></i>
+                    <p class="text-xs text-gray-400">دعم 24/7</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<!-- Footer -->
+<footer class="py-8 px-4 border-t border-white/5 mt-12">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="text-xl font-black italic font-['Playfair_Display']">
+            RAPID <span class="text-gold">BH</span>
+        </div>
+        <p class="text-gray-500 text-xs">© 2026 RAPID BH PRO</p>
+        <div class="flex gap-4 text-sm text-gray-400">
+            <span>+971 50 885 1549</span>
+        </div>
+    </div>
+</footer>
+
+<!-- JavaScript -->
+<script>
+    // Products Data
+    const PRODUCTS = [
+        { id: 1, name: "معطر عود ملكي", price: 15, img: "https://i.ibb.co/9mSytFrM/IMG-7278.jpg" },
+        { id: 2, name: "معطر العطور العربية", price: 15, img: "https://i.ibb.co/YF8sD3p2/IMG-7285.jpg" },
+        { id: 3, name: "معطر زهور بيضاء", price: 15, img: "https://i.ibb.co/V0nJW4CY/IMG-7280.jpg" },
+        { id: 4, name: "معطر فواكه استوائية", price: 15, img: "https://i.ibb.co/Y7B86C54/IMG-7279.jpg" },
+        { id: 5, name: "مزيل البقع الصعبة", price: 15, img: "https://i.ibb.co/3mcb1trt/IMG-7284.jpg" },
+        { id: 6, name: "مزيل الدهون المحروقة", price: 15, img: "https://i.ibb.co/KzxfrNkC/IMG-7281.jpg" },
+        { id: 7, name: "بوكس التوفير (12 عبوة)", price: 150, img: null, isBox: true }
+    ];
+
+    // State
+    let cart = [];
+    let discount = 0;
+    const FREE_SHIPPING_THRESHOLD = 100;
+    const SHIPPING_COST = 20;
+
+    // Initialize
+    function init() {
+        loadCart();
+        renderCart();
+        setupNavbar();
+    }
+
+    // Load Cart
+    function loadCart() {
+        const saved = localStorage.getItem('rapid_cart');
+        cart = saved ? JSON.parse(saved) : [];
+    }
+
+    // Save Cart
+    function saveCart() {
+        localStorage.setItem('rapid_cart', JSON.stringify(cart));
+    }
+
+    // Render Cart
+    function renderCart() {
+        const container = document.getElementById('cart-items');
+        const emptyState = document.getElementById('empty-cart');
+        const content = document.getElementById('cart-content');
+
+        if (cart.length === 0) {
+            emptyState.classList.remove('hidden');
+            content.classList.add('hidden');
+            return;
+        }
+
+        emptyState.classList.add('hidden');
+        content.classList.remove('hidden');
+
+        // Update count
+        const totalItems = cart.reduce((a, b) => a + b.qty, 0);
+        document.getElementById('items-count').textContent = `(${totalItems})`;
+
+        // Render items
+        container.innerHTML = cart.map((item, index) => `
+            <div class="cart-item" style="animation-delay: ${index * 0.1}s">
+                <div class="cart-item-image ${item.isBox ? 'box-icon' : ''}">
+                    ${item.isBox 
+                        ? '<i class="fas fa-box-open"></i>' 
+                        : `<img src="${item.img}" alt="${item.name}">`
+                    }
+                </div>
+                
+                <div class="cart-item-details flex-1">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                        <div>
+                            <h3 class="font-bold text-lg mb-1">${item.name}</h3>
+                            <p class="text-gold font-black text-xl">${item.price} <span class="text-sm font-normal text-gray-400">درهم</span></p>
+                            ${item.isBox ? `<p class="text-xs text-gray-500 mt-1">${formatBoxItems(item.boxItems)}</p>` : ''}
+                        </div>
+                        
+                        <div class="flex items-center gap-4">
+                            <div class="qty-control">
+                                <button class="qty-btn minus" onclick="updateQty(${index}, -1)">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <span class="qty-value">${item.qty}</span>
+                                <button class="qty-btn plus" onclick="updateQty(${index}, 1)">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            
+                            <button class="remove-btn" onclick="removeItem(${index})">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-3 pt-3 border-t border-white/5 flex justify-between items-center">
+                        <span class="text-sm text-gray-400">المجموع</span>
+                        <span class="font-bold text-lg">${item.price * item.qty} درهم</span>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        updateSummary();
+    }
+
+    // Format Box Items
+    function formatBoxItems(items) {
+        if (!items) return '';
+        return Object.entries(items)
+            .filter(([_, q]) => q > 0)
+            .map(([id, q]) => {
+                const product = PRODUCTS.find(p => p.id == id);
+                return product ? `${product.name} (${q})` : '';
+            })
+            .join('، ');
+    }
+
+    // Update Quantity
+    function updateQty(index, delta) {
+        cart[index].qty += delta;
+        if (cart[index].qty <= 0) {
+            cart.splice(index, 1);
+        }
+        saveCart();
+        renderCart();
+    }
+
+    // Remove Item
+    function removeItem(index) {
+        cart.splice(index, 1);
+        saveCart();
+        renderCart();
+        toast('تم الحذف من السلة');
+    }
+
+    // Clear Cart
+    function clearCart() {
+        if (!confirm('هل أنت متأكد من إفراغ السلة؟')) return;
+        cart = [];
+        saveCart();
+        renderCart();
+    }
+
+    // Update Summary
+    function updateSummary() {
+        const subtotal = cart.reduce((a, b) => a + (b.price * b.qty), 0);
+        const remaining = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal);
+        const freeShipping = subtotal >= FREE_SHIPPING_THRESHOLD;
+        const shipping = freeShipping ? 0 : SHIPPING_COST;
+        const total = subtotal + shipping - discount;
+
+        // Update DOM
+        document.getElementById('subtotal').textContent = `${subtotal} درهم`;
+        document.getElementById('shipping').textContent = shipping === 0 ? 'مجاني' : `${shipping} درهم`;
+        document.getElementById('total').textContent = `${total} درهم`;
+
+        // Shipping progress
+        const progress = Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD) * 100);
+        document.getElementById('shipping-progress').style.width = `${progress}%`;
+        
+        const statusEl = document.getElementById('shipping-status');
+        const messageEl = document.getElementById('shipping-message');
+        
+        if (freeShipping) {
+            statusEl.innerHTML = '<span class="free-shipping-badge"><i class="fas fa-check-circle"></i> مجاني</span>';
+            messageEl.textContent = '🎉 تهانينا! لقد حصلت على شحن مجاني';
+            messageEl.className = 'text-green-500 text-xs mt-2 font-bold';
+        } else {
+            statusEl.textContent = `${shipping} درهم`;
+            messageEl.textContent = `أضف منتجات بـ ${remaining} درهم للشحن المجاني`;
+            messageEl.className = 'text-gray-500 text-xs mt-2';
+        }
+
+        // Discount
+        if (discount > 0) {
+            document.getElementById('discount-row').classList.remove('hidden');
+            document.getElementById('discount').textContent = `-${discount} درهم`;
+        }
+
+        // Checkout button
+        document.getElementById('checkout-btn').disabled = cart.length === 0;
+    }
+
+    // Apply Coupon
+    function applyCoupon() {
+        const code = document.getElementById('coupon-code').value.trim().toUpperCase();
+        
+        const coupons = {
+            'RAPID10': 10,
+            'WELCOME': 15,
+            'BOX20': 20
+        };
+
+        if (coupons[code]) {
+            discount = coupons[code];
+            toast(`تم تطبيق خصم ${discount} درهم ✅`);
+            updateSummary();
+        } else {
+            toast('كود خصم غير صالح ❌');
+            discount = 0;
+            updateSummary();
+        }
+    }
+
+    // Go to Checkout
+    function goToCheckout() {
+        // Save cart state for checkout page
+        sessionStorage.setItem('checkout_cart', JSON.stringify(cart));
+        sessionStorage.setItem('checkout_discount', discount);
+        window.location.href = 'checkout.html';
+    }
+
+    // Utilities
+    function toggleMenu() {
+        document.getElementById('mobile-menu').classList.toggle('hidden');
+    }
+
+    function setupNavbar() {
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('nav-glass', window.scrollY > 50);
+        });
+    }
+
+    function toast(msg) {
+        const existing = document.querySelector('.toast');
+        if (existing) existing.remove();
+        const t = document.createElement('div');
+        t.className = 'toast animate__animated animate__fadeInUp';
+        t.textContent = msg;
+        document.body.appendChild(t);
+        setTimeout(() => t.remove(), 2500);
+    }
+
+    // Init
+    init();
+</script>
+
+</body>
+</html>
