@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>إتمام الطلب | RAPID BH PRO</title>
     
-    <!-- Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
@@ -18,9 +17,7 @@
                     colors: {
                         gold: '#c5a028',
                         primary: '#e63946',
-                        dark: '#0a0a0a',
-                        glass: 'rgba(255,255,255,0.05)',
-                        glassBorder: 'rgba(255,255,255,0.1)'
+                        dark: '#0a0a0a'
                     },
                     fontFamily: {
                         tajawal: ['Tajawal', 'sans-serif'],
@@ -41,7 +38,6 @@
             min-height: 100vh;
         }
 
-        /* Glassmorphism */
         .glass {
             background: rgba(255,255,255,0.03);
             backdrop-filter: blur(20px);
@@ -54,83 +50,17 @@
             border: 1px solid rgba(197,160,40,0.2);
         }
 
-        /* Navigation */
-        .nav-glass {
-            background: rgba(10,10,10,0.9);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        /* Form Steps */
-        .step-indicator {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
-            margin-bottom: 40px;
-        }
-
-        .step {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: rgba(255,255,255,0.3);
-            font-size: 14px;
-            font-weight: 700;
-        }
-
-        .step.active {
-            color: #c5a028;
-        }
-
-        .step.completed {
-            color: #22c55e;
-        }
-
-        .step-number {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-        }
-
-        .step.active .step-number {
-            background: #c5a028;
-            color: black;
-        }
-
-        .step.completed .step-number {
-            background: #22c55e;
-            color: white;
-        }
-
-        /* Form Inputs */
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
-            font-weight: 700;
-            color: rgba(255,255,255,0.8);
-        }
-
         .form-input {
             width: 100%;
             background: rgba(0,0,0,0.3);
             border: 2px solid rgba(255,255,255,0.1);
-            padding: 16px 20px;
-            border-radius: 16px;
+            padding: 20px 24px;
+            border-radius: 20px;
             color: white;
-            font-size: 16px;
+            font-size: 18px;
             transition: all 0.3s;
             outline: none;
+            text-align: right;
         }
 
         .form-input:focus {
@@ -153,93 +83,34 @@
             color: rgba(255,255,255,0.3);
         }
 
-        /* Select */
-        .form-select {
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: left 16px center;
-            background-size: 20px;
-            padding-left: 48px;
-        }
-
-        /* Radio Cards */
-        .radio-card {
-            background: rgba(255,255,255,0.03);
-            border: 2px solid rgba(255,255,255,0.08);
-            border-radius: 16px;
-            padding: 16px 20px;
+        .submit-btn {
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+            color: white;
+            width: 100%;
+            padding: 24px;
+            border-radius: 20px;
+            font-size: 20px;
+            font-weight: 900;
+            border: none;
             cursor: pointer;
             transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .radio-card:hover {
-            border-color: rgba(197,160,40,0.3);
-            background: rgba(255,255,255,0.05);
-        }
-
-        .radio-card.selected {
-            border-color: #c5a028;
-            background: rgba(197,160,40,0.1);
-        }
-
-        .radio-card input {
-            display: none;
-        }
-
-        .radio-circle {
-            width: 24px;
-            height: 24px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s;
+            gap: 12px;
+            box-shadow: 0 10px 30px rgba(37,211,102,0.3);
         }
 
-        .radio-card.selected .radio-circle {
-            border-color: #c5a028;
-            background: #c5a028;
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(37,211,102,0.5);
         }
 
-        .radio-circle i {
-            color: black;
-            font-size: 12px;
-            opacity: 0;
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
-        .radio-card.selected .radio-circle i {
-            opacity: 1;
-        }
-
-        /* Payment Method */
-        .payment-method {
-            background: rgba(255,255,255,0.03);
-            border: 2px solid rgba(255,255,255,0.08);
-            border-radius: 20px;
-            padding: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .payment-method:hover {
-            border-color: rgba(197,160,40,0.3);
-        }
-
-        .payment-method.selected {
-            border-color: #c5a028;
-            background: rgba(197,160,40,0.1);
-        }
-
-        .payment-method input {
-            display: none;
-        }
-
-        /* Order Item */
         .order-item {
             display: flex;
             gap: 16px;
@@ -252,12 +123,15 @@
         }
 
         .order-image {
-            width: 80px;
-            height: 80px;
-            border-radius: 12px;
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
             overflow: hidden;
             background: linear-gradient(135deg, rgba(197,160,40,0.1) 0%, rgba(230,57,70,0.1) 100%);
             flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .order-image img {
@@ -267,118 +141,10 @@
         }
 
         .order-image.box-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
+            font-size: 28px;
             color: #c5a028;
         }
 
-        /* Submit Button */
-        .submit-btn {
-            background: linear-gradient(135deg, #e63946 0%, #9b1c1c 100%);
-            color: white;
-            width: 100%;
-            padding: 20px;
-            border-radius: 16px;
-            font-size: 18px;
-            font-weight: 900;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            box-shadow: 0 10px 30px rgba(230,57,70,0.3);
-        }
-
-        .submit-btn:hover:not(:disabled) {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(230,57,70,0.5);
-        }
-
-        .submit-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* Success Modal */
-        .success-modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(20px);
-            z-index: 99999;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .success-modal.active {
-            display: flex;
-        }
-
-        .success-content {
-            background: linear-gradient(135deg, rgba(197,160,40,0.1) 0%, rgba(230,57,70,0.1) 100%);
-            border: 1px solid rgba(197,160,40,0.3);
-            border-radius: 40px;
-            padding: 60px;
-            text-align: center;
-            max-width: 500px;
-            animation: scaleIn 0.5s ease;
-        }
-
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .success-icon {
-            width: 120px;
-            height: 120px;
-            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 60px;
-            margin: 0 auto 30px;
-            animation: bounceIn 0.6s ease;
-        }
-
-        @keyframes bounceIn {
-            0% { transform: scale(0); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-
-        /* Mobile Menu */
-        .mobile-menu {
-            position: fixed;
-            inset: 0;
-            background: rgba(10,10,10,0.98);
-            backdrop-filter: blur(20px);
-            z-index: 6000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 32px;
-        }
-
-        .mobile-menu.hidden {
-            display: none;
-        }
-
-        /* Toast */
         .toast {
             position: fixed;
             bottom: 30px;
@@ -392,34 +158,6 @@
             z-index: 99999;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #0a0a0a; }
-        ::-webkit-scrollbar-thumb { background: #c5a028; border-radius: 3px; }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .step-indicator {
-                flex-wrap: wrap;
-                gap: 12px;
-            }
-
-            .step span {
-                display: none;
-            }
-
-            .success-content {
-                padding: 40px 30px;
-            }
-
-            .success-icon {
-                width: 80px;
-                height: 80px;
-                font-size: 40px;
-            }
-        }
-
-        /* Loading Spinner */
         .spinner {
             width: 24px;
             height: 24px;
@@ -432,306 +170,124 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #c5a028; border-radius: 3px; }
     </style>
 </head>
 <body>
 
-<!-- Success Modal -->
-<div id="success-modal" class="success-modal">
-    <div class="success-content">
-        <div class="success-icon">
-            <i class="fas fa-check"></i>
-        </div>
-        <h2 class="text-3xl font-black mb-4">تم إرسال طلبك! 🎉</h2>
-        <p class="text-gray-300 mb-6">سنتواصل معك قريباً عبر واتساب لتأكيد الطلب</p>
-        <div class="glass rounded-2xl p-4 mb-6 text-right">
-            <p class="text-sm text-gray-400 mb-2">رقم الطلب:</p>
-            <p class="text-2xl font-black text-gold" id="order-number">#RBH-2026-0001</p>
-        </div>
-        <a href="index.html" class="submit-btn">
-            <i class="fas fa-home"></i>
-            العودة للرئيسية
-        </a>
-    </div>
-</div>
-
 <!-- Navigation -->
-<nav id="navbar" class="fixed top-0 left-0 right-0 z-[5000] transition-all duration-500 py-4 px-4 md:py-6 md:px-8">
-    <div class="max-w-7xl mx-auto flex justify-between items-center">
-        <div class="flex items-center gap-4">
-            <button onclick="toggleMenu()" class="text-xl hover:text-gold transition p-2">
-                <i class="fas fa-bars"></i>
-            </button>
-            <a href="cart.html" class="text-sm font-bold text-gray-400 hover:text-white transition flex items-center gap-2">
-                <i class="fas fa-arrow-right"></i>
-                <span class="hidden md:inline">العودة للسلة</span>
-            </a>
-        </div>
-
-        <a href="index.html" class="text-xl md:text-2xl font-black font-['Playfair_Display'] italic tracking-tight">
-            RAPID <span class="text-gold">BH</span>
+<nav class="fixed top-0 left-0 right-0 z-50 py-4 px-4 bg-[#0a0a0a]/90 backdrop-blur-xl border-b border-white/5">
+    <div class="max-w-md mx-auto flex justify-between items-center">
+        <a href="cart.html" class="text-gray-400 hover:text-white transition">
+            <i class="fas fa-arrow-right text-xl"></i>
         </a>
-
-        <div class="w-10"></div>
+        <div class="text-xl font-black italic font-['Playfair_Display']">
+            RAPID <span class="text-gold">BH</span>
+        </div>
+        <div class="w-8"></div>
     </div>
 </nav>
 
-<!-- Mobile Menu -->
-<div id="mobile-menu" class="mobile-menu hidden">
-    <button onclick="toggleMenu()" class="absolute top-6 left-6 text-4xl hover:text-primary transition">&times;</button>
-    <a href="index.html" onclick="toggleMenu()" class="text-3xl font-black italic hover:text-gold transition">الرئيسية</a>
-    <a href="cart.html" onclick="toggleMenu()" class="text-3xl font-black italic hover:text-gold transition">السلة</a>
-</div>
-
 <!-- Main Content -->
-<main class="pt-24 pb-12 px-4 md:px-8 max-w-6xl mx-auto">
+<main class="pt-20 pb-12 px-4 max-w-md mx-auto">
     
     <!-- Header -->
     <div class="text-center mb-8">
-        <h1 class="text-3xl md:text-4xl font-black italic font-['Playfair_Display'] mb-2">
+        <h1 class="text-2xl font-black italic font-['Playfair_Display'] mb-2">
             إتمام <span class="text-gold">الطلب</span>
         </h1>
-        <p class="text-gray-400">أكمل بياناتك وسنصلك في أسرع وقت</p>
+        <p class="text-gray-400 text-sm">أكمل بياناتك وسنرسل لك التفاصيل</p>
     </div>
 
-    <!-- Steps -->
-    <div class="step-indicator">
-        <div class="step active" id="step-1">
-            <div class="step-number">1</div>
-            <span>البيانات</span>
-        </div>
-        <i class="fas fa-chevron-left text-gray-600"></i>
-        <div class="step" id="step-2">
-            <div class="step-number">2</div>
-            <span>الشحن</span>
-        </div>
-        <i class="fas fa-chevron-left text-gray-600"></i>
-        <div class="step" id="step-3">
-            <div class="step-number">3</div>
-            <span>الدفع</span>
-        </div>
-    </div>
-
-    <div class="grid md:grid-cols-5 gap-8">
+    <!-- Order Summary -->
+    <div class="glass-strong rounded-3xl p-6 mb-6">
+        <h2 class="font-bold text-lg mb-4 flex items-center gap-2">
+            <i class="fas fa-shopping-bag text-gold"></i>
+            طلبك
+        </h2>
         
-        <!-- Form Section -->
-        <div class="md:col-span-3 space-y-6">
-            
-            <!-- Personal Info -->
-            <div class="glass rounded-3xl p-6 md:p-8" id="section-info">
-                <h2 class="text-xl font-bold mb-6 flex items-center gap-3">
-                    <i class="fas fa-user text-gold"></i>
-                    البيانات الشخصية
-                </h2>
-
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div class="form-group md:col-span-2">
-                        <label class="form-label">الاسم الكامل *</label>
-                        <input type="text" id="full-name" class="form-input" placeholder="محمد أحمد" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">رقم الهاتف *</label>
-                        <input type="tel" id="phone" class="form-input" placeholder="0501234567" required>
-                        <p class="text-red-500 text-xs mt-2 hidden" id="phone-error">رقم هاتف إماراتي غير صالح</p>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">البريد الإلكتروني (اختياري)</label>
-                        <input type="email" id="email" class="form-input" placeholder="example@email.com">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Shipping -->
-            <div class="glass rounded-3xl p-6 md:p-8" id="section-shipping">
-                <h2 class="text-xl font-bold mb-6 flex items-center gap-3">
-                    <i class="fas fa-truck text-gold"></i>
-                    عنوان التوصيل
-                </h2>
-
-                <div class="form-group">
-                    <label class="form-label">المدينة *</label>
-                    <select id="city" class="form-input form-select" required>
-                        <option value="">اختر المدينة</option>
-                        <option value="Abu Dhabi">أبوظبي</option>
-                        <option value="Dubai">دبي</option>
-                        <option value="Sharjah">الشارقة</option>
-                        <option value="Ajman">عجمان</option>
-                        <option value="Ras Al Khaimah">رأس الخيمة</option>
-                        <option value="Fujairah">الفجيرة</option>
-                        <option value="Umm Al Quwain">أم القيوين</option>
-                        <option value="Al Ain">العين</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">المنطقة / الحي *</label>
-                    <input type="text" id="area" class="form-input" placeholder="مثال: المنطقة الصناعية، شارع الشيخ زايد" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">العنوان التفصيلي *</label>
-                    <input type="text" id="address" class="form-input" placeholder="رقم المبنى، الشقة، علامة مميزة" required>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">ملاحظات (اختياري)</label>
-                    <input type="text" id="notes" class="form-input" placeholder="أي تعليمات خاصة للتوصيل">
-                </div>
-            </div>
-
-            <!-- Payment -->
-            <div class="glass rounded-3xl p-6 md:p-8" id="section-payment">
-                <h2 class="text-xl font-bold mb-6 flex items-center gap-3">
-                    <i class="fas fa-credit-card text-gold"></i>
-                    طريقة الدفع
-                </h2>
-
-                <div class="space-y-4">
-                    <label class="payment-method selected" onclick="selectPayment('cod')">
-                        <input type="radio" name="payment" value="cod" checked>
-                        <div class="flex items-center gap-4">
-                            <div class="w-14 h-14 rounded-xl bg-green-600/20 flex items-center justify-center text-green-500 text-2xl">
-                                <i class="fas fa-money-bill-wave"></i>
-                            </div>
-                            <div>
-                                <p class="font-bold">الدفع عند الاستلام</p>
-                                <p class="text-sm text-gray-400">ادفع نقداً عند استلام طلبك</p>
-                            </div>
-                        </div>
-                    </label>
-
-                    <label class="payment-method" onclick="selectPayment('card')">
-                        <input type="radio" name="payment" value="card">
-                        <div class="flex items-center gap-4">
-                            <div class="w-14 h-14 rounded-xl bg-blue-600/20 flex items-center justify-center text-blue-500 text-2xl">
-                                <i class="fas fa-credit-card"></i>
-                            </div>
-                            <div>
-                                <p class="font-bold">بطاقة ائتمانية</p>
-                                <p class="text-sm text-gray-400">Visa, Mastercard (قريباً)</p>
-                            </div>
-                            <span class="mr-auto text-xs bg-gray-700 px-2 py-1 rounded">قريباً</span>
-                        </div>
-                    </label>
-
-                    <label class="payment-method" onclick="selectPayment('apple')">
-                        <input type="radio" name="payment" value="apple">
-                        <div class="flex items-center gap-4">
-                            <div class="w-14 h-14 rounded-xl bg-gray-700/50 flex items-center justify-center text-white text-2xl">
-                                <i class="fab fa-apple"></i>
-                            </div>
-                            <div>
-                                <p class="font-bold">Apple Pay</p>
-                                <p class="text-sm text-gray-400">دفع سريع وآمن (قريباً)</p>
-                            </div>
-                            <span class="mr-auto text-xs bg-gray-700 px-2 py-1 rounded">قريباً</span>
-                        </div>
-                    </label>
-                </div>
-            </div>
-
+        <div id="order-items" class="max-h-48 overflow-y-auto mb-4">
+            <!-- Dynamic -->
         </div>
 
-        <!-- Order Summary -->
-        <div class="md:col-span-2">
-            <div class="glass-strong rounded-3xl p-6 sticky top-24">
-                <h2 class="text-xl font-bold mb-6 flex items-center gap-3">
-                    <i class="fas fa-shopping-bag text-gold"></i>
-                    ملخص الطلب
-                </h2>
+        <div class="border-t border-white/10 pt-4 space-y-2">
+            <div class="flex justify-between text-sm">
+                <span class="text-gray-400">المجموع</span>
+                <span id="subtotal">0 درهم</span>
+            </div>
+            <div class="flex justify-between text-sm">
+                <span class="text-gray-400">التوصيل</span>
+                <span class="text-green-400">1 درهم</span>
+            </div>
+            <div class="flex justify-between items-center pt-2 border-t border-white/10">
+                <span class="font-bold">الإجمالي</span>
+                <span class="text-2xl font-black text-gold" id="total">0 درهم</span>
+            </div>
+        </div>
+    </div>
 
-                <!-- Items -->
-                <div id="order-items" class="max-h-64 overflow-y-auto mb-6">
-                    <!-- Dynamic -->
-                </div>
+    <!-- Simple Form -->
+    <div class="glass rounded-3xl p-6">
+        <h2 class="font-bold text-lg mb-6 flex items-center gap-2">
+            <i class="fas fa-user text-gold"></i>
+            بياناتك
+        </h2>
 
-                <!-- Totals -->
-                <div class="space-y-3 border-t border-white/10 pt-4">
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-400">المجموع الفرعي</span>
-                        <span id="summary-subtotal">0 درهم</span>
-                    </div>
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-400">الشحن</span>
-                        <span id="summary-shipping">0 درهم</span>
-                    </div>
-                    <div class="flex justify-between text-sm hidden" id="summary-discount-row">
-                        <span class="text-green-500">الخصم</span>
-                        <span class="text-green-500" id="summary-discount">-0 درهم</span>
-                    </div>
-                    <div class="flex justify-between items-center pt-3 border-t border-white/10">
-                        <span class="font-bold text-lg">الإجمالي</span>
-                        <span class="text-2xl font-black text-gold" id="summary-total">0 درهم</span>
-                    </div>
-                </div>
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm text-gray-400 mb-2">الاسم الكامل *</label>
+                <input type="text" id="full-name" class="form-input" placeholder="مثال: محمد أحمد">
+            </div>
 
-                <!-- Submit -->
-                <button onclick="submitOrder()" class="submit-btn mt-6" id="submit-btn">
-                    <span>إتمام الطلب عبر واتساب</span>
-                    <i class="fab fa-whatsapp text-xl"></i>
-                </button>
-
-                <p class="text-center text-xs text-gray-500 mt-4">
-                    <i class="fas fa-lock mr-1"></i>
-                    بياناتك آمنة 100% ولا تشارك مع أي طرف ثالث
-                </p>
+            <div>
+                <label class="block text-sm text-gray-400 mb-2">رقم الهاتف *</label>
+                <input type="tel" id="phone" class="form-input" placeholder="0501234567" maxlength="10">
+                <p class="text-red-500 text-xs mt-2 hidden" id="phone-error">رقم غير صالح</p>
             </div>
         </div>
 
+        <button onclick="sendOrder()" class="submit-btn mt-6" id="submit-btn">
+            <i class="fab fa-whatsapp text-2xl"></i>
+            إرسال للواتساب
+        </button>
+
+        <p class="text-center text-xs text-gray-500 mt-4">
+            سيتم إرسال تفاصيل العنوان والدفع عبر الواتساب
+        </p>
     </div>
 
 </main>
 
-<!-- Footer -->
-<footer class="py-8 px-4 border-t border-white/5 mt-12">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-        <div class="text-xl font-black italic font-['Playfair_Display']">
-            RAPID <span class="text-gold">BH</span>
-        </div>
-        <p class="text-gray-500 text-xs">© 2026 RAPID BH PRO</p>
-        <div class="flex gap-4 text-sm text-gray-400">
-            <span>+971 50 885 1549</span>
-        </div>
-    </div>
-</footer>
-
-<!-- JavaScript -->
 <script>
     // State
     let cart = [];
-    let discount = 0;
-    let currentStep = 1;
-    const FREE_SHIPPING_THRESHOLD = 100;
-    const SHIPPING_COST = 20;
+    const SHIPPING = 1;
 
     // Initialize
     function init() {
         loadCart();
-        renderOrderSummary();
-        setupValidation();
-        setupNavbar();
+        renderOrder();
     }
 
-    // Load Cart from session
+    // Load Cart
     function loadCart() {
-        const saved = sessionStorage.getItem('checkout_cart');
-        const savedDiscount = sessionStorage.getItem('checkout_discount');
-        
+        const saved = sessionStorage.getItem('checkout_cart') || localStorage.getItem('rapid_cart');
         if (!saved) {
             window.location.href = 'cart.html';
             return;
         }
-        
         cart = JSON.parse(saved);
-        discount = parseInt(savedDiscount) || 0;
     }
 
-    // Render Order Summary
-    function renderOrderSummary() {
+    // Render Order
+    function renderOrder() {
         const container = document.getElementById('order-items');
-        
+        const subtotal = cart.reduce((a, b) => a + (b.price * b.qty), 0);
+        const total = subtotal + SHIPPING;
+
         container.innerHTML = cart.map(item => `
             <div class="order-item">
                 <div class="order-image ${item.isBox ? 'box-icon' : ''}">
@@ -741,205 +297,90 @@
                     }
                 </div>
                 <div class="flex-1">
-                    <h4 class="font-bold text-sm mb-1 line-clamp-2">${item.name}</h4>
-                    <p class="text-gold font-bold">${item.price} درهم × ${item.qty}</p>
+                    <h4 class="font-bold text-sm line-clamp-1">${item.name}</h4>
+                    <p class="text-gold font-bold text-sm">${item.price} × ${item.qty}</p>
                 </div>
             </div>
         `).join('');
 
-        updateTotals();
+        document.getElementById('subtotal').textContent = `${subtotal} درهم`;
+        document.getElementById('total').textContent = `${total} درهم`;
     }
 
-    // Update Totals
-    function updateTotals() {
-        const subtotal = cart.reduce((a, b) => a + (b.price * b.qty), 0);
-        const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST;
-        const total = subtotal + shipping - discount;
-
-        document.getElementById('summary-subtotal').textContent = `${subtotal} درهم`;
-        document.getElementById('summary-shipping').textContent = shipping === 0 ? 'مجاني' : `${shipping} درهم`;
-        document.getElementById('summary-total').textContent = `${total} درهم`;
-
-        if (discount > 0) {
-            document.getElementById('summary-discount-row').classList.remove('hidden');
-            document.getElementById('summary-discount').textContent = `-${discount} درهم`;
-        }
-    }
-
-    // Select Payment
-    function selectPayment(method) {
-        document.querySelectorAll('.payment-method').forEach(el => {
-            el.classList.remove('selected');
-            el.querySelector('input').checked = false;
-        });
-        
-        event.currentTarget.classList.add('selected');
-        event.currentTarget.querySelector('input').checked = true;
-    }
-
-    // Validation
-    function setupValidation() {
-        const phoneInput = document.getElementById('phone');
-        phoneInput.addEventListener('blur', () => {
-            validatePhone(phoneInput.value);
-        });
-
-        // Step tracking
-        const inputs = document.querySelectorAll('.form-input[required]');
-        inputs.forEach(input => {
-            input.addEventListener('change', updateStep);
-            input.addEventListener('input', updateStep);
-        });
-    }
-
-    function validatePhone(phone) {
-        const uaeRegex = /^(?:\+971|00971|0)?(?:50|51|52|54|55|56|58|2|3|4|6|7|9)\d{7}$/;
-        const clean = phone.replace(/\s/g, '').replace(/-/g, '');
-        const errorEl = document.getElementById('phone-error');
-        const inputEl = document.getElementById('phone');
-
-        if (!uaeRegex.test(clean)) {
-            errorEl.classList.remove('hidden');
-            inputEl.classList.add('error');
-            return false;
-        }
-
-        errorEl.classList.add('hidden');
-        inputEl.classList.remove('error');
-        return true;
-    }
-
-    function updateStep() {
-        const name = document.getElementById('full-name').value;
-        const phone = document.getElementById('phone').value;
-        const city = document.getElementById('city').value;
-        const address = document.getElementById('address').value;
-
-        // Step 1: Personal info
-        if (name && phone && validatePhone(phone)) {
-            document.getElementById('step-1').classList.add('completed');
-            document.getElementById('step-1').classList.remove('active');
-            document.getElementById('step-2').classList.add('active');
-        }
-
-        // Step 2: Shipping
-        if (city && address) {
-            document.getElementById('step-2').classList.add('completed');
-            document.getElementById('step-2').classList.remove('active');
-            document.getElementById('step-3').classList.add('active');
-        }
-    }
-
-    // Submit Order
-    function submitOrder() {
-        // Validate all fields
+    // Send Order
+    function sendOrder() {
         const name = document.getElementById('full-name').value.trim();
         const phone = document.getElementById('phone').value.trim();
-        const city = document.getElementById('city').value;
-        const area = document.getElementById('area').value.trim();
-        const address = document.getElementById('address').value.trim();
-        const notes = document.getElementById('notes').value.trim();
+        const phoneError = document.getElementById('phone-error');
+        const phoneInput = document.getElementById('phone');
 
+        // Validate
         if (!name) {
-            toast('أدخل الاسم الكامل');
+            toast('أدخل اسمك');
             document.getElementById('full-name').focus();
             return;
         }
 
-        if (!validatePhone(phone)) {
-            toast('أدخل رقم هاتف صحيح');
-            document.getElementById('phone').focus();
+        const uaeRegex = /^(?:05|5)\d{8}$/;
+        const cleanPhone = phone.replace(/\D/g, '');
+        
+        if (!uaeRegex.test(cleanPhone)) {
+            phoneError.classList.remove('hidden');
+            phoneInput.classList.add('error');
+            toast('أدخل رقم إماراتي صحيح');
             return;
         }
 
-        if (!city) {
-            toast('اختر المدينة');
-            document.getElementById('city').focus();
-            return;
-        }
+        phoneError.classList.add('hidden');
+        phoneInput.classList.remove('error');
 
-        if (!area) {
-            toast('أدخل المنطقة');
-            document.getElementById('area').focus();
-            return;
-        }
-
-        if (!address) {
-            toast('أدخل العنوان التفصيلي');
-            document.getElementById('address').focus();
-            return;
-        }
-
-        // Format phone
-        let formattedPhone = phone.replace(/\s/g, '').replace(/-/g, '');
-        if (formattedPhone.startsWith('0')) {
-            formattedPhone = '+971' + formattedPhone.substring(1);
-        }
-
-        // Calculate totals
+        // Calculate
         const subtotal = cart.reduce((a, b) => a + (b.price * b.qty), 0);
-        const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST;
-        const total = subtotal + shipping - discount;
+        const total = subtotal + SHIPPING;
 
-        // Generate order number
-        const orderNum = '#RBH-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
-        document.getElementById('order-number').textContent = orderNum;
-
-        // Build WhatsApp message
-        let message = `🛒 *طلب جديد - ${orderNum}*\n\n`;
-        message += `👤 *العميل:* ${name}\n`;
-        message += `📱 *الهاتف:* ${formattedPhone}\n`;
-        message += `📍 *العنوان:* ${city} - ${area}\n`;
-        message += `🏠 *التفاصيل:* ${address}\n`;
-        if (notes) message += `📝 *ملاحظات:* ${notes}\n`;
-        message += `\n━━━━━━━━━━━━━━\n`;
-        message += `*المنتجات:*\n\n`;
+        // Build message
+        let message = `🛒 *طلب جديد من RAPID BH PRO*\n\n`;
+        message += `👤 *الاسم:* ${name}\n`;
+        message += `📱 *الهاتف:* ${cleanPhone}\n\n`;
+        message += `*المنتجات:*\n`;
 
         cart.forEach((item, i) => {
-            message += `${i + 1}. ${item.name}\n`;
+            message += `\n${i + 1}. ${item.name}\n`;
             message += `   الكمية: ${item.qty}\n`;
-            message += `   السعر: ${item.price * item.qty} درهم\n\n`;
+            message += `   السعر: ${item.price * item.qty} درهم\n`;
         });
 
-        message += `━━━━━━━━━━━━━━\n`;
-        message += `💰 المجموع الفرعي: ${subtotal} درهم\n`;
-        if (shipping > 0) message += `🚚 الشحن: ${shipping} درهم\n`;
-        else message += `🚚 الشحن: مجاني ✅\n`;
-        if (discount > 0) message += `🏷️ الخصم: -${discount} درهم\n`;
-        message += `\n*💵 الإجمالي: ${total} درهم*\n`;
-        message += `⏰ ${new Date().toLocaleString('ar-AE')}`;
+        message += `\n━━━━━━━━━━━━━━\n`;
+        message += `💰 المجموع: ${subtotal} درهم\n`;
+        message += `🚚 التوصيل: ${SHIPPING} درهم\n`;
+        message += `*💵 الإجمالي: ${total} درهم*\n\n`;
+        message += `📍 *العنوان والدفع:*\nسأرسل التفاصيل الآن`;
 
-        // Show loading
+        // Loading
         const btn = document.getElementById('submit-btn');
-        const originalContent = btn.innerHTML;
-        btn.innerHTML = '<div class="spinner"></div> جاري الإرسال...';
+        btn.innerHTML = '<div class="spinner"></div>';
         btn.disabled = true;
 
         // Open WhatsApp
         setTimeout(() => {
             window.open(`https://wa.me/971508851549?text=${encodeURIComponent(message)}`, '_blank');
             
-            // Show success
-            document.getElementById('success-modal').classList.add('active');
-            
-            // Clear cart
+            // Clear
             localStorage.removeItem('rapid_cart');
             sessionStorage.removeItem('checkout_cart');
-            sessionStorage.removeItem('checkout_discount');
-        }, 1000);
+            
+            // Reset button
+            btn.innerHTML = '<i class="fas fa-check text-2xl"></i> تم الإرسال';
+            btn.style.background = 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)';
+            
+            // Redirect after 2 seconds
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 2000);
+        }, 800);
     }
 
-    // Utilities
-    function toggleMenu() {
-        document.getElementById('mobile-menu').classList.toggle('hidden');
-    }
-
-    function setupNavbar() {
-        window.addEventListener('scroll', () => {
-            document.getElementById('navbar').classList.toggle('nav-glass', window.scrollY > 50);
-        });
-    }
-
+    // Toast
     function toast(msg) {
         const existing = document.querySelector('.toast');
         if (existing) existing.remove();
@@ -949,6 +390,12 @@
         document.body.appendChild(t);
         setTimeout(() => t.remove(), 2500);
     }
+
+    // Phone validation on input
+    document.getElementById('phone').addEventListener('input', function(e) {
+        this.value = this.value.replace(/\D/g, '');
+        if (this.value.length > 10) this.value = this.value.slice(0, 10);
+    });
 
     // Init
     init();
