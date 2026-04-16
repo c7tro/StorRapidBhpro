@@ -1,10 +1,10 @@
 @echo off
-echo جاري تنظيف مخلفات النظام يا قاسم...
+echo Cleaning system junk files...
 del /s /f /q %userprofile%\AppData\Local\Temp\*.*
 rd /s /q %userprofile%\AppData\Local\Temp
 md %userprofile%\AppData\Local\Temp
 del /s /f /q C:\Windows\Temp\*.*
 rd /s /q C:\Windows\Temp
 md C:\Windows\Temp
-echo تم تنظيف الملفات المؤقتة بنجاح!
+echo System Cleaned Successfully!
 pause
