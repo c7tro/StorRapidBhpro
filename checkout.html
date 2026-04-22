@@ -3,403 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إتمام الطلب | RAPID BH PRO</title>
-    
+    <title>تأكيد الطلب | RAPID BH PRO</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        gold: '#c5a028',
-                        primary: '#e63946',
-                        dark: '#0a0a0a'
-                    },
-                    fontFamily: {
-                        tajawal: ['Tajawal', 'sans-serif'],
-                        playfair: ['Playfair Display', 'serif']
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background: #0a0a0a;
-            color: white;
-            min-height: 100vh;
-        }
-
-        .glass {
-            background: rgba(255,255,255,0.03);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .glass-strong {
-            background: rgba(255,255,255,0.08);
-            backdrop-filter: blur(40px);
-            border: 1px solid rgba(197,160,40,0.2);
-        }
-
-        .form-input {
-            width: 100%;
-            background: rgba(0,0,0,0.3);
-            border: 2px solid rgba(255,255,255,0.1);
-            padding: 20px 24px;
-            border-radius: 20px;
-            color: white;
-            font-size: 18px;
-            transition: all 0.3s;
-            outline: none;
-            text-align: right;
-        }
-
-        .form-input:focus {
-            border-color: #c5a028;
-            background: rgba(0,0,0,0.5);
-        }
-
-        .form-input.error {
-            border-color: #ef4444;
-            animation: shake 0.5s;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
-
-        .form-input::placeholder {
-            color: rgba(255,255,255,0.3);
-        }
-
-        .submit-btn {
-            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
-            color: white;
-            width: 100%;
-            padding: 24px;
-            border-radius: 20px;
-            font-size: 20px;
-            font-weight: 900;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            box-shadow: 0 10px 30px rgba(37,211,102,0.3);
-        }
-
-        .submit-btn:hover:not(:disabled) {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(37,211,102,0.5);
-        }
-
-        .submit-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .order-item {
-            display: flex;
-            gap: 16px;
-            padding: 16px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .order-item:last-child {
-            border-bottom: none;
-        }
-
-        .order-image {
-            width: 70px;
-            height: 70px;
-            border-radius: 16px;
-            overflow: hidden;
-            background: linear-gradient(135deg, rgba(197,160,40,0.1) 0%, rgba(230,57,70,0.1) 100%);
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .order-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .order-image.box-icon {
-            font-size: 28px;
-            color: #c5a028;
-        }
-
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, #e63946 0%, #9b1c1c 100%);
-            color: white;
-            padding: 16px 32px;
-            border-radius: 16px;
-            font-weight: 800;
-            z-index: 99999;
-        }
-
-        .spinner {
-            width: 24px;
-            height: 24px;
-            border: 3px solid rgba(255,255,255,0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #0a0a0a; }
-        ::-webkit-scrollbar-thumb { background: #c5a028; border-radius: 3px; }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Tajawal', sans-serif; background: #000; color: #fff; }</style>
 </head>
-<body>
+<body class="p-6">
 
-<!-- Navigation -->
-<nav class="fixed top-0 left-0 right-0 z-50 py-4 px-4 bg-[#0a0a0a]/90 backdrop-blur-xl border-b border-white/5">
-    <div class="max-w-md mx-auto flex justify-between items-center">
-        <a href="cart.html" class="text-gray-400 hover:text-white transition">
-            <i class="fas fa-arrow-right text-xl"></i>
-        </a>
-        <div class="text-xl font-black italic font-['Playfair_Display']">
-            RAPID <span class="text-gold">BH</span>
-        </div>
-        <div class="w-8"></div>
-    </div>
-</nav>
-
-<!-- Main Content -->
-<main class="pt-20 pb-12 px-4 max-w-md mx-auto">
+<div class="max-w-xl mx-auto">
+    <h1 class="text-3xl font-black italic mb-10 text-center">بيانات التوصيل</h1>
     
-    <!-- Header -->
-    <div class="text-center mb-8">
-        <h1 class="text-2xl font-black italic font-['Playfair_Display'] mb-2">
-            إتمام <span class="text-gold">الطلب</span>
-        </h1>
-        <p class="text-gray-400 text-sm">أكمل بياناتك وسنرسل لك التفاصيل</p>
-    </div>
-
-    <!-- Order Summary -->
-    <div class="glass-strong rounded-3xl p-6 mb-6">
-        <h2 class="font-bold text-lg mb-4 flex items-center gap-2">
-            <i class="fas fa-shopping-bag text-gold"></i>
-            طلبك
-        </h2>
-        
-        <div id="order-items" class="max-h-48 overflow-y-auto mb-4">
-            <!-- Dynamic -->
+    <div class="space-y-6">
+        <div>
+            <label class="block text-gray-500 mb-2 text-sm">الاسم الكامل</label>
+            <input type="text" id="name" class="w-full bg-zinc-900 border border-white/10 p-4 rounded-2xl focus:border-red-600 outline-none">
+        </div>
+        <div>
+            <label class="block text-gray-500 mb-2 text-sm">رقم الجوال</label>
+            <input type="tel" id="phone" class="w-full bg-zinc-900 border border-white/10 p-4 rounded-2xl focus:border-red-600 outline-none" placeholder="05x xxxxxxx">
+        </div>
+        <div>
+            <label class="block text-gray-500 mb-2 text-sm">العنوان بالتفصيل (أبوظبي/العين/إلخ..)</label>
+            <textarea id="address" class="w-full bg-zinc-900 border border-white/10 p-4 rounded-2xl focus:border-red-600 outline-none h-32"></textarea>
         </div>
 
-        <div class="border-t border-white/10 pt-4 space-y-2">
-            <div class="flex justify-between text-sm">
-                <span class="text-gray-400">المجموع</span>
-                <span id="subtotal">0 درهم</span>
-            </div>
-            <div class="flex justify-between text-sm">
-                <span class="text-gray-400">التوصيل</span>
-                <span class="text-green-400">1 درهم</span>
-            </div>
-            <div class="flex justify-between items-center pt-2 border-t border-white/10">
-                <span class="font-bold">الإجمالي</span>
-                <span class="text-2xl font-black text-gold" id="total">0 درهم</span>
-            </div>
-        </div>
+        <button onclick="sendToWhatsapp()" class="w-full bg-green-600 py-6 rounded-3xl text-xl font-black shadow-2xl">إرسال الطلب عبر واتساب ✅</button>
     </div>
-
-    <!-- Simple Form -->
-    <div class="glass rounded-3xl p-6">
-        <h2 class="font-bold text-lg mb-6 flex items-center gap-2">
-            <i class="fas fa-user text-gold"></i>
-            بياناتك
-        </h2>
-
-        <div class="space-y-4">
-            <div>
-                <label class="block text-sm text-gray-400 mb-2">الاسم الكامل *</label>
-                <input type="text" id="full-name" class="form-input" placeholder="مثال: محمد أحمد">
-            </div>
-
-            <div>
-                <label class="block text-sm text-gray-400 mb-2">رقم الهاتف *</label>
-                <input type="tel" id="phone" class="form-input" placeholder="0501234567" maxlength="10">
-                <p class="text-red-500 text-xs mt-2 hidden" id="phone-error">رقم غير صالح</p>
-            </div>
-        </div>
-
-        <button onclick="sendOrder()" class="submit-btn mt-6" id="submit-btn">
-            <i class="fab fa-whatsapp text-2xl"></i>
-            إرسال للواتساب
-        </button>
-
-        <p class="text-center text-xs text-gray-500 mt-4">
-            سيتم إرسال تفاصيل العنوان والدفع عبر الواتساب
-        </p>
-    </div>
-
-</main>
+</div>
 
 <script>
-    // State
-    let cart = [];
-    const SHIPPING = 1;
+    function sendToWhatsapp() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const name = document.getElementById('name').value;
+        const phone = document.getElementById('phone').value;
+        const address = document.getElementById('address').value;
 
-    // Initialize
-    function init() {
-        loadCart();
-        renderOrder();
-    }
+        if(!name || !phone || !address) return alert("يرجى ملء كافة البيانات");
 
-    // Load Cart
-    function loadCart() {
-        const saved = sessionStorage.getItem('checkout_cart') || localStorage.getItem('rapid_cart');
-        if (!saved) {
-            window.location.href = 'cart.html';
-            return;
-        }
-        cart = JSON.parse(saved);
-    }
-
-    // Render Order
-    function renderOrder() {
-        const container = document.getElementById('order-items');
-        const subtotal = cart.reduce((a, b) => a + (b.price * b.qty), 0);
-        const total = subtotal + SHIPPING;
-
-        container.innerHTML = cart.map(item => `
-            <div class="order-item">
-                <div class="order-image ${item.isBox ? 'box-icon' : ''}">
-                    ${item.isBox 
-                        ? '<i class="fas fa-box-open"></i>' 
-                        : `<img src="${item.img}" alt="${item.name}">`
-                    }
-                </div>
-                <div class="flex-1">
-                    <h4 class="font-bold text-sm line-clamp-1">${item.name}</h4>
-                    <p class="text-gold font-bold text-sm">${item.price} × ${item.qty}</p>
-                </div>
-            </div>
-        `).join('');
-
-        document.getElementById('subtotal').textContent = `${subtotal} درهم`;
-        document.getElementById('total').textContent = `${total} درهم`;
-    }
-
-    // Send Order
-    function sendOrder() {
-        const name = document.getElementById('full-name').value.trim();
-        const phone = document.getElementById('phone').value.trim();
-        const phoneError = document.getElementById('phone-error');
-        const phoneInput = document.getElementById('phone');
-
-        // Validate
-        if (!name) {
-            toast('أدخل اسمك');
-            document.getElementById('full-name').focus();
-            return;
-        }
-
-        const uaeRegex = /^(?:05|5)\d{8}$/;
-        const cleanPhone = phone.replace(/\D/g, '');
+        let msg = `*طلب جديد من RAPID BH PRO*\n\n`;
+        msg += `*الاسم:* ${name}\n`;
+        msg += `*الجوال:* ${phone}\n`;
+        msg += `*العنوان:* ${address}\n\n`;
+        msg += `*المنتجات:*\n`;
         
-        if (!uaeRegex.test(cleanPhone)) {
-            phoneError.classList.remove('hidden');
-            phoneInput.classList.add('error');
-            toast('أدخل رقم إماراتي صحيح');
-            return;
-        }
-
-        phoneError.classList.add('hidden');
-        phoneInput.classList.remove('error');
-
-        // Calculate
-        const subtotal = cart.reduce((a, b) => a + (b.price * b.qty), 0);
-        const total = subtotal + SHIPPING;
-
-        // Build message
-        let message = `🛒 *طلب جديد من RAPID BH PRO*\n\n`;
-        message += `👤 *الاسم:* ${name}\n`;
-        message += `📱 *الهاتف:* ${cleanPhone}\n\n`;
-        message += `*المنتجات:*\n`;
-
+        let total = 0;
         cart.forEach((item, i) => {
-            message += `\n${i + 1}. ${item.name}\n`;
-            message += `   الكمية: ${item.qty}\n`;
-            message += `   السعر: ${item.price * item.qty} درهم\n`;
+            msg += `${i+1}. ${item.name} (${item.price} AED)\n`;
+            total += item.price;
         });
 
-        message += `\n━━━━━━━━━━━━━━\n`;
-        message += `💰 المجموع: ${subtotal} درهم\n`;
-        message += `🚚 التوصيل: ${SHIPPING} درهم\n`;
-        message += `*💵 الإجمالي: ${total} درهم*\n\n`;
-        message += `📍 *العنوان والدفع:*\nسأرسل التفاصيل الآن`;
-
-        // Loading
-        const btn = document.getElementById('submit-btn');
-        btn.innerHTML = '<div class="spinner"></div>';
-        btn.disabled = true;
-
-        // Open WhatsApp
-        setTimeout(() => {
-            window.open(`https://wa.me/971508851549?text=${encodeURIComponent(message)}`, '_blank');
-            
-            // Clear
-            localStorage.removeItem('rapid_cart');
-            sessionStorage.removeItem('checkout_cart');
-            
-            // Reset button
-            btn.innerHTML = '<i class="fas fa-check text-2xl"></i> تم الإرسال';
-            btn.style.background = 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)';
-            
-            // Redirect after 2 seconds
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 2000);
-        }, 800);
+        msg += `\n*الإجمالي النهائي: ${total} AED*`;
+        
+        window.open(`https://wa.me/971508851549?text=${encodeURIComponent(msg)}`);
+        localStorage.removeItem('cart'); // تنظيف السلة بعد الطلب
     }
-
-    // Toast
-    function toast(msg) {
-        const existing = document.querySelector('.toast');
-        if (existing) existing.remove();
-        const t = document.createElement('div');
-        t.className = 'toast animate__animated animate__fadeInUp';
-        t.textContent = msg;
-        document.body.appendChild(t);
-        setTimeout(() => t.remove(), 2500);
-    }
-
-    // Phone validation on input
-    document.getElementById('phone').addEventListener('input', function(e) {
-        this.value = this.value.replace(/\D/g, '');
-        if (this.value.length > 10) this.value = this.value.slice(0, 10);
-    });
-
-    // Init
-    init();
 </script>
-
 </body>
 </html>
