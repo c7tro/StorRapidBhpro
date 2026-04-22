@@ -3,102 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RAPID BH PRO | الرئيسية</title>
+    <title>RAPID BH PRO | Industrial Excellence</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
-        :root { --primary: #e63946; --gold: #c5a028; --dark: #000000; --card: #0f0f11; }
-        body { font-family: 'Tajawal', sans-serif; background-color: var(--dark); color: #fff; }
-        .product-card { background: var(--card); border-radius: 35px; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
-        .grid-double { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; }
-        .grid-double .image-box { height: 160px !important; margin: 8px !important; }
-        .grid-double h3 { font-size: 0.9rem !important; }
-        .grid-double .hide-on-grid { display: none; }
-        .image-box { height: 350px; margin: 12px; border-radius: 25px; overflow: hidden; position: relative; }
-        .image-box img { width: 100%; height: 100%; object-fit: cover; }
+        :root { --primary: #e63946; --gold: #c5a028; --dark: #050505; --card-bg: #0f0f11; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--dark); color: #fff; overflow-x: hidden; }
+        
+        /* Navbar Glassmorphism */
+        nav { background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+        /* Premium Product Card */
+        .premium-card {
+            background: var(--card-bg);
+            border-radius: 45px;
+            border: 1px solid rgba(255,255,255,0.03);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        .premium-card:hover { transform: translateY(-15px); border-color: var(--primary); box-shadow: 0 30px 60px rgba(230, 57, 70, 0.15); }
+
+        .img-container { height: 420px; margin: 15px; border-radius: 35px; overflow: hidden; position: relative; }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; transition: 0.8s; }
+        .premium-card:hover img { transform: scale(1.1) rotate(2deg); }
+
+        /* Box Icon Animation */
+        .box-badge { background: linear-gradient(135deg, var(--gold), #8a6d1a); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+
+        /* Grid Toggle Classes */
+        .grid-compact { grid-template-columns: repeat(2, 1fr) !important; gap: 15px !important; }
+        .grid-compact .img-container { height: 180px !important; margin: 8px !important; }
+        .grid-compact .card-details, .grid-compact .btn-text { display: none; }
+        .grid-compact h3 { font-size: 0.8rem !important; }
     </style>
 </head>
 <body>
 
-<nav class="fixed top-0 w-full z-50 py-4 px-6 bg-black/80 backdrop-blur-md border-b border-white/5 flex justify-between items-center">
-    <button onclick="toggleAbout()" class="text-xs font-bold text-gray-400">ABOUT US</button>
-    <div class="text-xl font-black italic">RAPID BH<span class="text-red-600">PRO</span></div>
-    <div class="flex items-center gap-4">
-        <button onclick="toggleLayout()" class="md:hidden"><i id="layout-icon" class="fas fa-grip-vertical"></i></button>
+<nav class="fixed top-0 w-full z-[1000] py-5 px-8 flex justify-between items-center">
+    <div class="flex items-center gap-8">
+        <a href="index.html" class="text-xs font-black tracking-widest text-red-600 hover:text-white transition">HOME</a>
+        <a href="product.html?id=7" class="text-xs font-black tracking-widest text-gray-400 hover:text-gold transition">SHOP BOX</a>
+    </div>
+    <div class="text-2xl font-black italic tracking-tighter">RAPID BH<span class="text-red-600">PRO</span></div>
+    <div class="flex items-center gap-6">
+        <button onclick="toggleGrid()" class="md:hidden w-10 h-10 flex items-center justify-center bg-white/5 rounded-full"><i class="fas fa-th-large"></i></button>
         <a href="cart.html" class="relative">
-            <span id="cart-count" class="absolute -top-2 -right-2 bg-red-600 text-[10px] w-4 h-4 rounded-full flex items-center justify-center">0</span>
-            <i class="fas fa-shopping-bag"></i>
+            <span id="cart-count" class="absolute -top-2 -right-2 bg-red-600 text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-black">0</span>
+            <i class="fas fa-shopping-cart text-xl"></i>
         </a>
     </div>
 </nav>
 
-<div id="about-modal" class="fixed inset-0 bg-black/95 z-[100] hidden p-10 flex flex-col justify-center animate__animated animate__fadeIn">
-    <button onclick="toggleAbout()" class="absolute top-10 left-10 text-4xl">&times;</button>
-    <h2 class="text-5xl font-black text-red-600 italic mb-6">RAPID BH PRO</h2>
-    <p class="text-gray-400 text-lg mb-8 leading-relaxed">أفضل المنظفات والمعطرات الصناعية في أبوظبي. جودة احترافية تدوم طويلاً.</p>
-    <div class="bg-white/5 p-6 rounded-3xl border border-white/10">
-        <p class="font-bold">واتساب: 971508851549+</p>
-        <p class="text-sm text-gray-500 mt-2">المقر: أبوظبي، الإمارات</p>
+<header class="h-screen flex items-center justify-center relative overflow-hidden">
+    <div class="absolute inset-0 bg-cover bg-center opacity-40 transform scale-110" style="background-image: url('https://i.ibb.co/9kCQjSsy/IMG-7517.jpg');"></div>
+    <div class="relative z-10 text-center px-4">
+        <h1 class="text-8xl md:text-[180px] font-black italic animate__animated animate__fadeInDown leading-none">RAPID <span class="text-red-600">BH</span></h1>
+        <div class="h-1 w-40 bg-red-600 mx-auto my-6"></div>
+        <p class="text-gold font-bold tracking-[15px] uppercase text-sm md:text-2xl">Abu Dhabi's Finest</p>
     </div>
-</div>
-
-<header class="h-[60vh] flex flex-col items-center justify-center text-center px-6">
-    <h1 class="text-6xl font-black italic animate__animated animate__zoomIn">RAPID <span class="text-red-600">BH</span></h1>
-    <p class="text-gold tracking-[8px] text-xs font-bold mt-2">INDUSTRIAL CLEANING PRO</p>
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+        <i class="fas fa-chevron-down text-gray-600"></i>
+    </div>
 </header>
 
-<section class="py-10 px-4 max-w-7xl mx-auto">
-    <div id="products-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
+<div class="flex justify-center gap-4 py-10 bg-zinc-950/50 backdrop-blur-md sticky top-[80px] z-[900] border-b border-white/5 overflow-x-auto px-4">
+    <a href="index.html" class="px-8 py-3 bg-red-600 rounded-full font-black text-sm">المنتجات</a>
+    <a href="checkout.html?type=about" class="px-8 py-3 bg-white/5 rounded-full font-black text-sm border border-white/10">عن الشركة</a>
+    <a href="checkout.html?type=contact" class="px-8 py-3 bg-white/5 rounded-full font-black text-sm border border-white/10">تواصل معنا</a>
+</div>
+
+<section class="py-24 px-6 max-w-[1600px] mx-auto">
+    <div id="main-grid" class="grid grid-cols-1 md:grid-cols-3 gap-16 transition-all duration-700">
+        </div>
 </section>
+
+<footer class="bg-zinc-950 py-20 px-8 border-t border-white/5">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div class="col-span-2">
+            <h2 class="text-4xl font-black italic mb-6">RAPID BH<span class="text-red-600">PRO</span></h2>
+            <p class="text-gray-500 leading-relaxed max-w-md">نحن لا نبيع منظفات فحسب، بل نقدم حلولاً احترافية وتركيبات كيميائية متطورة للعناية بمنزلك وسياراتك في دولة الإمارات.</p>
+        </div>
+        <div>
+            <h4 class="font-black mb-6 text-red-600 uppercase tracking-widest">Links</h4>
+            <ul class="space-y-4 text-gray-400 font-bold">
+                <li><a href="checkout.html?type=about" class="hover:text-white">قصتنا</a></li>
+                <li><a href="checkout.html?type=contact" class="hover:text-white">الدعم الفني</a></li>
+                <li><a href="checkout.html?type=complaint" class="hover:text-white">تقديم شكوى</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="font-black mb-6 text-red-600 uppercase tracking-widest">Connect</h4>
+            <div class="flex gap-4">
+                <a href="#" class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-600 transition"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-green-600 transition"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="mt-20 pt-10 border-t border-white/5 text-center text-xs text-gray-700 font-black">
+        © 2026 DESIGNED FOR QASIM | ALL RIGHTS RESERVED
+    </div>
+</footer>
 
 <script>
     const PRODUCTS = [
-        { id: 1, name: "مزيل الشحوم والزيوت", price: 15, img: "https://i.ibb.co/KzxfrNkC/IMG-7281.jpg", desc: "أقوى مزيل للدهون والأفران." },
-        { id: 2, name: "مزيل البقع الصعبة", price: 15, img: "https://i.ibb.co/3mcb1trt/IMG-7284.jpg", desc: "ينظف السجاد والأقمشة بعمق." },
-        { id: 3, name: "معطر جنات (فواكه)", price: 15, img: "https://i.ibb.co/Y7B86C54/IMG-7279.jpg", desc: "انتعاش الفواكه الاستوائية." },
-        { id: 4, name: "معطر جنات (زهور)", price: 15, img: "https://i.ibb.co/V0nJW4CY/IMG-7280.jpg", desc: "عبير الزهور البيضاء الفاخرة." },
-        { id: 5, name: "معطر جنات (عطور عربية)", price: 15, img: "https://i.ibb.co/YF8sD3p2/IMG-7285.jpg", desc: "فخامة المجالس العربية." },
-        { id: 6, name: "معطر جنات (عود ملكي)", price: 15, img: "https://i.ibb.co/9mSytFrM/IMG-7278.jpg", desc: "رائحة العود الفاخرة والأصلية." },
-        { id: 7, name: "بوكس التوفير (12 حبة)", price: 150, img: "https://i.ibb.co/9kCQjSsy/IMG-7517.jpg", isBox: true, desc: "وفر 30 درهم وصمم بوكسك الخاص." }
+        { id: 1, name: "مزيل الشحوم والزيوت", price: 15, img: "https://i.ibb.co/KzxfrNkC/IMG-7281.jpg", tag: "قوة صناعية", desc: "تركيبة حصرية لإذابة أصعب الدهون والزيوت المحروقة في الأفران والمحركات." },
+        { id: 2, name: "مزيل البقع الصعبة", price: 15, img: "https://i.ibb.co/3mcb1trt/IMG-7284.jpg", tag: "الأكثر طلباً", desc: "يزيل بقع الحبر والدم والقهوة من السجاد والمفروشات دون التأثير على الألوان." },
+        { id: 3, name: "معطر جنات (فواكه استوائية)", price: 15, img: "https://i.ibb.co/Y7B86C54/IMG-7279.jpg", tag: "انتعاش صيفي", desc: "مزيج منعش من عبير الفواكه الاستوائية بتركيز فائق يدوم 48 ساعة." },
+        { id: 4, name: "معطر جنات (زهور بيضاء)", price: 15, img: "https://i.ibb.co/V0nJW4CY/IMG-7280.jpg", tag: "لمسة أناقة", desc: "عبير الياسمين والزهور البيضاء الصافية لشعور بالنظافة والسكينة." },
+        { id: 5, name: "معطر جنات (عطور عربية)", price: 15, img: "https://i.ibb.co/YF8sD3p2/IMG-7285.jpg", tag: "فخامة عربية", desc: "مستوحى من أرقى العطور الشرقية لتعطير المجالس والملابس." },
+        { id: 6, name: "معطر جنات (عود ملكي)", price: 15, img: "https://i.ibb.co/9mSytFrM/IMG-7278.jpg", tag: "VIP LUXURY", desc: "العود الملكي الفاخر بتركيبة زيتية مركزة جداً للمساحات الواسعة." },
+        { id: 7, name: "بوكس التوفير (12 عبوة)", price: 150, img: "https://i.ibb.co/9kCQjSsy/IMG-7517.jpg", isBox: true, tag: "توفير 30 درهم", desc: "كن أنت الصانع! اختر أي 12 حبة من التشكيلة الكاملة وصمم بوكسك الخاص." }
     ];
 
-    function render() {
-        const grid = document.getElementById('products-grid');
+    function renderProducts() {
+        const grid = document.getElementById('main-grid');
         grid.innerHTML = PRODUCTS.map(p => `
-            <div class="product-card">
-                <div class="image-box cursor-pointer" onclick="goToProduct(${p.id})">
-                    <img src="${p.img}">
-                    <div class="absolute bottom-3 left-3 bg-red-600 px-3 py-1 rounded-lg font-black text-xs">${p.price} AED</div>
+            <div class="premium-card animate__animated animate__fadeInUp">
+                <div class="img-container">
+                    <img src="${p.img}" alt="${p.name}">
+                    <div class="absolute top-5 right-5 ${p.isBox ? 'box-badge' : 'bg-red-600'} px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter">${p.tag}</div>
+                    <div class="absolute bottom-5 left-5 bg-black/80 backdrop-blur-md px-5 py-2 rounded-2xl font-black text-xl border border-white/10">${p.price} AED</div>
                 </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-black italic mb-2">${p.name}</h3>
-                    <p class="text-gray-500 text-xs mb-4 hide-on-grid">${p.desc}</p>
-                    <button onclick="goToProduct(${p.id})" class="w-full bg-red-600 py-3 rounded-xl font-bold text-sm">عرض التفاصيل</button>
+                <div class="p-10 card-details">
+                    <h3 class="text-3xl font-black italic mb-4 uppercase tracking-tighter">${p.name}</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-8 h-12 overflow-hidden">${p.desc}</p>
+                    <div class="flex gap-3">
+                        <button onclick="window.location.href='product.html?id=${p.id}'" class="flex-1 bg-white text-black py-4 rounded-2xl font-black text-xs hover:bg-red-600 hover:text-white transition uppercase">التفاصيل</button>
+                        <button onclick="quickAdd(${p.id})" class="w-14 h-14 bg-red-600 rounded-2xl flex items-center justify-center"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+                <div class="hidden grid-show p-4 text-center">
+                    <h3 class="font-black text-xs mb-2">${p.name}</h3>
+                    <button onclick="window.location.href='product.html?id=${p.id}'" class="w-full bg-red-600 py-2 rounded-lg text-[10px] font-black">اطلب الآن</button>
                 </div>
             </div>
         `).join('');
     }
 
-    function goToProduct(id) {
-        window.location.href = `product.html?id=${id}`;
+    function toggleGrid() {
+        document.getElementById('main-grid').classList.toggle('grid-compact');
     }
 
-    function toggleLayout() {
-        const grid = document.getElementById('products-grid');
-        grid.classList.toggle('grid-double');
+    function quickAdd(id) {
+        const p = PRODUCTS.find(x => x.id === id);
+        if(p.isBox) { window.location.href='product.html?id=7'; return; }
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart.push(p);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+        showToast("تمت الإضافة للسلة");
     }
 
-    function toggleAbout() {
-        document.getElementById('about-modal').classList.toggle('hidden');
+    function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        document.getElementById('cart-count').innerText = cart.length;
     }
 
-    // تحديث عداد السلة
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    document.getElementById('cart-count').innerText = cart.length;
+    function showToast(m) {
+        const t = document.createElement('div');
+        t.className = "fixed bottom-10 left-1/2 -translate-x-1/2 bg-white text-black px-8 py-4 rounded-full font-black z-[2000] animate__animated animate__fadeInUp";
+        t.innerText = m;
+        document.body.appendChild(t);
+        setTimeout(() => t.remove(), 2000);
+    }
 
-    render();
+    updateCartCount();
+    renderProducts();
 </script>
+
 </body>
 </html>
