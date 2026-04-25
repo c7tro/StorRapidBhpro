@@ -1,2 +1,0 @@
-# StorRapidBhpro
-Stor
