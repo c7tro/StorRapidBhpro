@@ -494,15 +494,15 @@
                     <input type="text" id="reviewer-name" placeholder="اسمك الكريم" data-ar-placeholder="اسمك الكريم" data-en-placeholder="Your Name" class="w-full bg-black/40 border border-white/10 p-4 rounded-xl outline-none focus:border-red-600 transition text-sm">
                     <textarea id="reviewer-text" placeholder="اكتب رأيك بصراحة..." data-ar-placeholder="اكتب رأيك بصراحة..." data-en-placeholder="Write your review..." rows="2" class="w-full bg-black/40 border border-white/10 p-4 rounded-xl outline-none focus:border-red-600 transition text-sm resize-none"></textarea>
                     
-                    <div class="flex items-center gap-4 mt-2">
-                        <label for="review-image" class="flex items-center gap-2 cursor-pointer bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-xl border border-white/10 transition group">
-                            <i class="fas fa-camera text-gray-400 group-hover:text-red-600"></i>
-                            <span class="text-xs text-gray-400 group-hover:text-white" data-ar="إرفاق صورة (اختياري)" data-en="Attach Photo (Optional)">إرفاق صورة (اختياري)</span>
-                            <input type="file" id="review-image" accept="image/*" class="hidden" onchange="previewReviewImage(this)">
+                    <div class="flex flex-wrap items-center gap-4">
+                        <label for="review-image" class="cursor-pointer bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-xl border border-white/10 flex items-center gap-2 transition text-xs font-bold">
+                            <i class="fas fa-camera text-red-600"></i>
+                            <span data-ar="إرفاق صورة المنتج (اختياري)" data-en="Attach Product Photo (Optional)">إرفاق صورة المنتج (اختياري)</span>
                         </label>
-                        <div id="image-preview-container" class="hidden relative w-12 h-12">
-                            <img id="review-img-preview" src="" class="w-full h-full object-cover rounded-lg border border-red-600">
-                            <button onclick="removeReviewImage()" class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">&times;</button>
+                        <input type="file" id="review-image" accept="image/*" class="hidden" onchange="previewReviewImage(this)">
+                        <div id="image-preview-container" class="hidden relative">
+                            <img id="review-image-preview" src="" class="w-16 h-16 object-cover rounded-lg border border-red-600">
+                            <button onclick="removeReviewImage()" class="absolute -top-2 -right-2 bg-red-600 text-white w-5 h-5 rounded-full text-[10px] flex items-center justify-center">×</button>
                         </div>
                         <button onclick="postComment()" class="btn-premium px-8 py-3 rounded-xl text-sm mr-auto" data-ar="نشر" data-en="Post">نشر</button>
                     </div>
@@ -576,7 +576,7 @@
         boxSelection: {},
         comments: [], // يتم تحميلها من السيرفر
         visibleComments: 5,
-        currentCommentImage: null
+        reviewImageBase64: null // لتخزين الصورة المختارة مؤقتاً
     };
 
     /* --- INITIALIZATION --- */
@@ -600,22 +600,22 @@
         }
     }
 
-    // معاينة الصورة المختارة
+    // خاصية معاينة الصورة
     function previewReviewImage(input) {
-        if (input.files && input.files[0]) {
+        const file = input.files[0];
+        if (file) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                state.currentCommentImage = e.target.result;
-                document.getElementById('review-img-preview').src = e.target.result;
+                state.reviewImageBase64 = e.target.result;
+                document.getElementById('review-image-preview').src = e.target.result;
                 document.getElementById('image-preview-container').classList.remove('hidden');
             }
-            reader.readAsDataURL(input.files[0]);
+            reader.readAsDataURL(file);
         }
     }
 
-    // إزالة الصورة المختارة
     function removeReviewImage() {
-        state.currentCommentImage = null;
+        state.reviewImageBase64 = null;
         document.getElementById('review-image').value = '';
         document.getElementById('image-preview-container').classList.add('hidden');
     }
@@ -629,13 +629,14 @@
             return;
         }
 
-        // ملاحظة: تأكد أن جدول 'comments' في Supabase يحتوي على عمود باسم 'image_url' (نوع text)
+        // إدراج التعليق مع الصورة (إذا وجدت)
+        // ملاحظة: تأكد من وجود عمود باسم 'image' في جدول 'comments' بـ Supabase من نوع Text
         const { error } = await supabaseClient
             .from('comments')
             .insert([{ 
                 name: nameInput.value, 
                 text: textInput.value,
-                image_url: state.currentCommentImage // يتم إرسال الصورة كـ Base64
+                image: state.reviewImageBase64 
             }]);
 
         if (!error) {
@@ -644,8 +645,8 @@
             fetchComments();
             toast(state.lang === 'ar' ? 'شكراً لرأيك! تم النشر' : 'Thanks! Post published');
         } else {
-            console.error(error);
-            toast(state.lang === 'ar' ? 'حدث خطأ في النشر' : 'Post failed');
+            console.error("Supabase Error:", error);
+            toast(state.lang === 'ar' ? 'حدث خطأ أثناء النشر' : 'Error publishing post');
         }
     }
 
@@ -662,9 +663,9 @@
                     <div class="fb-comment-bubble border border-white/5 shadow-md mb-2">
                         <div class="font-black text-white text-sm mb-1">${c.name}</div>
                         <div class="text-white text-[15px] leading-snug">${c.text}</div>
-                        ${c.image_url ? `
-                            <div class="mt-3 overflow-hidden rounded-xl border border-white/10 cursor-zoom-in" onclick="viewImage('${c.image_url}')">
-                                <img src="${c.image_url}" class="max-w-full max-h-48 object-cover">
+                        ${c.image ? `
+                            <div class="mt-3 cursor-zoom-in overflow-hidden rounded-lg border border-white/10" onclick="viewImage('${c.image}')">
+                                <img src="${c.image}" class="max-w-full h-auto max-h-48 object-cover hover:scale-105 transition duration-500">
                             </div>
                         ` : ''}
                     </div>
