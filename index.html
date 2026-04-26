@@ -382,7 +382,7 @@
         <div id="box-options-list" class="space-y-4 mb-10"></div>
 
         <div class="flex gap-4">
-            <button onclick="confirmBoxSelection()" id="confirm-box-btn" class="flex-1 bg-green-600 py-6 rounded-3xl font-black text-xl opacity-40 cursor-not-allowed transition-all" data-ar="إضافة للسلة" data-en="Add to Cart">إضافة للسلة</button>
+            <button onclick="confirmBoxSelection()" id="confirm-box-btn" class="flex-1 bg-green-600 py-6 rounded-3xl font-black text-xl opacity-40 cursor-allowed transition-all" data-ar="إضافة للسلة" data-en="Add to Cart">إضافة للسلة</button>
             <button onclick="closeBoxModal()" class="px-10 bg-white/5 py-6 rounded-3xl font-bold" data-ar="إلغاء" data-en="Cancel">إلغاء</button>
         </div>
     </div>
@@ -637,16 +637,16 @@
         renderFBComments();
     }
 
-    /* --- UI RENDERING (ORIGINAL - NO CHANGES) --- */
+    /* --- UI RENDERING --- */
     function renderProducts() {
         const grid = document.getElementById('products-grid');
         grid.innerHTML = PRODUCTS.map(p => `
             <div class="product-card animate__animated animate__fadeIn">
                 <div class="image-box" onclick="${p.isBox ? 'openBoxWizard()' : `viewImage('${p.img}')`}">
                     ${p.isBox ? 
-                        `<div class="h-full flex flex-col items-center justify-center bg-gradient-to-br from-zinc-800 to-black">
-                            <i class="fas fa-box-open text-7xl text-gold mb-4 animate-float"></i>
-                            <span class="font-black text-gold">12 PCS</span>
+                        `<div class="h-full flex flex-col items-center justify-center" style="background: linear-gradient(135deg, #27272a 0%, #000000 100%) !important;">
+                            <i class="fas fa-box-open text-7xl mb-4 animate-float" style="color: #c5a028 !important;"></i>
+                            <span class="font-black" style="color: #c5a028 !important;">12 PCS</span>
                         </div>` : 
                         `<img src="${p.img}" alt="${p.name}" loading="lazy">`
                     }
@@ -701,7 +701,7 @@
         document.getElementById('cart-total').innerText = `${total} AED`;
     }
 
-    /* --- LOGIC CENTER (ORIGINAL) --- */
+    /* --- LOGIC CENTER --- */
     function viewImage(url) {
         document.getElementById('full-img').src = url;
         document.getElementById('image-overlay').classList.remove('hidden');
