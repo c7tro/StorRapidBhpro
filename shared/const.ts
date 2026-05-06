@@ -1,0 +1,133 @@
+export const COOKIE_NAME = "app_session_id";
+export const ONE_YEAR_MS = 1000 * 60 * 60 * 24 * 365;
+
+export const PRODUCTS = [
+  {
+    id: 1,
+    name: "معطر عود ملكي",
+    nameEn: "Royal Oud",
+    price: 15,
+    img: "https://i.ibb.co/RpDbgyxG/IMG-8091.jpg",
+    info: "معطر جنات من Rapid BH Pro هو الخيار الأمثل لمنزل ينبض بالحياة والانتعاش. بتركيبته الفريدة، يضمن لك رائحة زكية تدوم لساعات طويلة.",
+    infoEn: "Jannat Air Freshener by Rapid BH Pro is the perfect choice for a vibrant and refreshing home. With its unique formula, it guarantees a delightful scent that lasts for hours.",
+    category: "air-freshener",
+    categoryAr: "معطرات الهواء",
+  },
+  {
+    id: 2,
+    name: "معطر برائحة العطور العربية",
+    nameEn: "Jannat Al Fawwah Air Freshener",
+    price: 15,
+    img: "https://i.ibb.co/Z6mHdqLT/jannat-al-fawah-marketing-2.png",
+    info: "معطر جنات الفواح يقدم تجربة عطرية استثنائية من Rapid BH Pro. مصمم خصيصاً ليمنحك رائحة قوية ومنعشة تنتشر بسرعة وتدوم طويلاً.",
+    infoEn: "Jannat Al Fawwah Air Freshener offers an exceptional aromatic experience from Rapid BH Pro. Specially designed to provide a strong and refreshing scent that quickly spreads and lasts for a long time.",
+    category: "air-freshener",
+    categoryAr: "معطرات الهواء",
+  },
+  {
+    id: 3,
+    name: "معطر زهور بيضاء",
+    nameEn: "White Flowers",
+    price: 15,
+    img: "https://i.ibb.co/kgkwB3Zs/marketing-perfume.png",
+    info: "انتعاش الزهور الطبيعية مناسب للارضيات والستائر.",
+    infoEn: "Pure and calm floral essence.",
+    category: "air-freshener",
+    categoryAr: "معطرات الهواء",
+  },
+  {
+    id: 4,
+    name: "معطر فواكه إستوائيه",
+    nameEn: "Fresh Fruits",
+    price: 15,
+    img: "https://i.ibb.co/4RCssDs7/marketing-perfume-strong.png",
+    info: "مزيج فواكه صيفيه منعشة رائحة قويه مناسبه للارضيات.",
+    infoEn: "Dynamic summer fruit blend.",
+    category: "air-freshener",
+    categoryAr: "معطرات الهواء",
+  },
+  {
+    id: 5,
+    name: "مزيل البقع الصعبة",
+    nameEn: "Rapid Stain Remover",
+    price: 15,
+    images: [
+      "https://i.ibb.co/3mcb1trt/IMG-7284.jpg",
+      "https://i.ibb.co/Z63wqhgf/fabric-before-after-bh-pro-99.png",
+    ],
+    info: "مزيل بقع رابيد من Rapid BH Pro هو بطل التنظيف الذي تحتاجه لمواجهة أصعب البقع. فعال على الأقمشة والأسطح المختلفة.",
+    infoEn: "Rapid Stain Remover from Rapid BH Pro is the cleaning hero you need to tackle the toughest stains. Effective on various fabrics and surfaces.",
+    category: "cleaning",
+    categoryAr: "منتجات التنظيف",
+  },
+  {
+    id: 6,
+    name: "مزيل الشحوم والزيوت المحروقة",
+    nameEn: "Rapid Grease Remover",
+    price: 15,
+    images: [
+      "https://i.ibb.co/BV2GT9b5/marketing-bh-pro.png",
+      "https://i.ibb.co/tMSwz7yn/before-after-bh-pro.png",
+    ],
+    info: "مزيل شحوم رابيد من Rapid BH Pro هو الحل الأمثل لجميع مشاكل الشحوم العنيدة في مطبخك. قوة مضاعفة لإزالة الشحوم والدهون.",
+    infoEn: "Rapid Grease Remover from Rapid BH Pro is the ultimate solution for all stubborn grease problems in your kitchen. Industrial power grease dissolver.",
+    category: "cleaning",
+    categoryAr: "منتجات التنظيف",
+  },
+  {
+    id: 7,
+    name: "بوكس التوفير (12 عبوة)",
+    nameEn: "Mega Savings (12 Pack)",
+    price: 150,
+    isBox: true,
+    info: "صمم بوكسك الخاص ووفر 30 درهم.",
+    infoEn: "Custom build your pack & save 30 AED.",
+    category: "bundle",
+    categoryAr: "عروض خاصة",
+  },
+];
+
+export const COMPANY_INFO = {
+  name: "Rapid BH Pro",
+  nameAr: "رابيد بي اتش برو",
+  whatsapp: "971508851549",
+  email: "info@rapidbhpro.com",
+  description: "منتجات تنظيف فاخرة وعالية الجودة",
+  descriptionEn: "Premium and high-quality cleaning products",
+};
+
+export const FEATURES = [
+  {
+    id: 1,
+    icon: "Sparkles",
+    title: "الجودة العالية",
+    titleEn: "Premium Quality",
+    description: "منتجات مصنوعة من أفضل المكونات",
+    descriptionEn: "Products made from the finest ingredients",
+  },
+  {
+    id: 2,
+    icon: "Shield",
+    title: "آمن وموثوق",
+    titleEn: "Safe & Reliable",
+    description: "آمن على الأسطح والأقمشة",
+    descriptionEn: "Safe for all surfaces and fabrics",
+  },
+  {
+    id: 3,
+    icon: "Zap",
+    title: "فعال جداً",
+    titleEn: "Highly Effective",
+    description: "نتائج سريعة وملحوظة",
+    descriptionEn: "Fast and noticeable results",
+  },
+  {
+    id: 4,
+    icon: "Heart",
+    title: "صديق للبيئة",
+    titleEn: "Eco-Friendly",
+    description: "منتجات صديقة للبيئة",
+    descriptionEn: "Environmentally friendly products",
+  },
+]
+;
